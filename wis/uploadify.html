@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <title>上传文档</title>
+    <script type="text/javascript" src="http://cdn.aodianyun.com/static/jquery/jquery-1.7.2.min.js"></script>
+    <!--上传插件-->
+    <script src="../js/uploadify/jquery.uploadify.min.js"></script>
+    <link href="../js/uploadify/uploadify.css" rel="stylesheet" />
+    <style>
+        body {
+            margin:0px;
+            padding:0px;
+            text-align:center;
+            height:100%;
+        }
+        #file_upload,.swfupload {
+            margin:15px auto 0px auto;
+            height:100%;
+            width:100%;
+            left:0px;
+        }
+        .swfupload {
+            top:-13px;
+        }
+    </style>
+</head>
+<body>
+    <form>
+        <div id="file_queue"></div>
+        <input id="file_upload" name="file_upload" type="file">
+    </form>
+    <script>
+        $(function () {
+            function resetButton() {
+                $("#file_upload").css("margin-top", "15px").css("overflow", "visible").css("margin-bottom", "20px;").height(30);
+            }
+            $('#file_upload').uploadify({
+                'formData': {},
+                'checkExisting' : false,
+                'swf': '../js/uploadify/uploadify.swf',
+                'uploader': 'uploadify.php',
+                'buttonText': '上传文档',
+                'multi': false,
+                'fileObjName': 'doc',
+                'queueID': 'file_queue',
+                'onUploadStart': function (file) {
+                    $("#file_upload").css("overflow", "hidden").height(0);
+                },
+                'onUploadSuccess': function (file, data, response) {
+                    resetButton();
+                    window.parent.loadDocList(null);
+                    alert(data);
+                },
+                'onUploadComplete': function (file) {
+                    resetButton();
+                },
+                'onUploadError': function (file, errorCode, errorMsg, errorString) {
+                    resetButton();
+                    alert("文件" + file.name + "上传失败");
+                }
+            });
+        });
+    </script>
+</body>
+</html>

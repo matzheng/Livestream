@@ -1,0 +1,623 @@
+﻿body {
+    margin:0px;
+    padding:0px;
+    background-color:rgb(98,115,135);
+    height:100%;
+}
+a {
+    text-decoration:none;
+    font-family: "Arial Negreta","Arial";
+}
+.mainBody {
+    height:100%;
+    width:100%;
+    position:absolute;
+    overflow:hidden;
+    min-height:680px;
+    min-width:1170px;
+}
+.mainBody .topBar {
+    background-color:rgb(64,74,87);
+    height:60px;
+    width:100%;
+    float:left;
+}
+.topBar .leftLabel {
+    font-family: "微软雅黑 Regular","微软雅黑";
+    font-size:22px;
+    color:white;
+    line-height:60px;
+    margin-left:80px;
+}
+.topBar .rightLabel {
+    font-family: "微软雅黑 Regular","微软雅黑";
+    float:right;
+    font-size:18px;
+    color:white;
+    line-height:60px;
+    margin-right:80px;
+}
+.topBar .rightLabel span,.topBar .leftLabel span {
+    color:#ffcc00;
+}
+.mainBody .centerHolder {
+    width:100%;
+    height:90%;
+}
+.centerHolder td {
+    height:100%;   
+}
+.mainBody .content {
+    height:610px;
+    width:860px;
+    overflow:hidden;
+    margin: auto;
+    padding-right:290px;
+}
+.content .leftBox {
+    height:608px;
+    width:861px;
+    float:left;
+    -moz-user-select: none;
+    -o-user-select:none;
+    -khtml-user-select:none;
+    -webkit-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+    /*background-color:black;*/
+    /*overflow:hidden;*/
+}
+.leftBox .boardView {
+    width:784px;
+    padding-left:76px;
+    border:1px solid rgb(87,102,119);
+    border-radius:5px 0px 0px 5px;
+    overflow:hidden;
+}
+.leftBox .videoView,.leftBox .videoView div {
+    height:100%;
+    width:100%;
+}
+.leftBox .videoView div {
+    background-position:center;
+    background-repeat:no-repeat;
+    background-size:100% 100%;
+}
+.content .rightBox {
+    height:608px;
+    /*overflow:hidden;*/
+    height:100%;
+    width:280px;
+    float:right;
+    margin-right:-290px;
+}
+.leftBox .toolsBar {
+    background-color:rgb(228,228,228);
+    border-right:1px solid rgb(174,174,174);
+    width:75px;
+    height:608px;
+    float:left;
+    margin-left:-76px;
+    text-align:center;
+}
+.toolsBar .itemSuit {
+    border-bottom:1px dashed rgb(174,174,174);
+}
+.toolsBar .itemSuit:first-child {
+    margin-top:5px;
+}
+.toolsBar .itemSuit-first {
+    margin-top:5px;
+}
+.toolsBar .itemSuit:last-child {
+    border-width:0px;
+}
+.toolsBar .itemSuit-last {
+    border-width:0px;
+}
+.toolsBar .toolLabel {
+    margin-top:4px;
+    line-height:32px;
+    overflow:hidden;
+    color: #0066cc;
+    font-family: "Arial Negreta","Arial";
+    font-size: 14px;
+    font-weight: 700;
+    padding-top:2px;
+}
+.toolsBar .toolItem {
+    border-radius:5px;
+    width:58px;
+    padding:4px 0px 4px 0px;
+    margin:auto;
+    text-align:center;
+    border:1px solid rgb(228,228,228);
+    cursor:pointer;
+}
+.toolsBar .toolItem:last-child {
+    margin-bottom:5px;
+}
+.toolsBar .toolItem-last {
+    margin-bottom:5px;
+}
+.toolsBar .selectItem,.toolsBar .toolItem:hover {
+    background-color:rgb(188,188,188);
+    border:1px solid white;
+}
+.toolsBar .colorList a {
+   display:block;
+   height:10px;
+   width:40px;
+   border:1px solid rgb(180,158,176);
+   margin:auto;
+}
+.toolsBar .colorList .selectItem a {
+   border:1px solid black;
+}
+.toolsBar .lineList a {
+   display:block;
+   width:40px;
+   background-color:rgb(107,107,107);
+   margin:6px auto 6px auto;
+}
+.toolsBar .lineList .selectItem a {
+    background-color:black;
+}
+.toolsBar .toolList a {
+   display:block;
+   height:16px;
+   width:30px;
+   background-repeat:no-repeat;
+   background-size:100% 100%;
+   background-position:center;
+   margin:auto;
+}
+.toolsBar .toolList a img {
+   height:16px;
+   width:16px;
+}
+.leftBox .boardBox {
+    background-color:black;
+}
+.leftBox .boardBox,.boardBox div {
+    background-position:center;
+    background-repeat:no-repeat;
+    background-size:100% 100%;
+    height:550px;
+    width:784px;
+}
+.boardBox .wis_context_small {
+    margin-top:0px !important;
+    margin-left:795px !important;
+    width:278px;
+    height:180px;
+    position:relative;
+}
+.leftBox .boardBottom {
+    background-color:rgb(128,128,128);
+    height:58px;
+    width:100%;
+    text-align:center;
+}
+.boardBottom select {
+    border:1px solid rgb(228,228,228);
+    width:50px;
+    height:23px;
+    border-radius:5px;
+}
+.boardBottom a {
+    color:white;
+    font-weight:600;
+    display:inline-block;
+    padding:0px 10px 0px 10px;
+    height:25px;
+    margin-top:18px;
+    line-height:25px;
+    border-radius:5px;
+}
+.boardBottom a:hover {
+    color:rgb(50,50,50);
+    background-color:white;
+}
+.rightBox .videoBox {
+    background-color:gray;
+    height:234px;
+    border:1px solid rgb(87,102,119);
+    border-radius:0px 0px 5px 5px;
+    /*overflow:hidden;*/
+}
+.rightBox .displayBox {
+    background-color:black;
+}
+.rightBox .displayBox,.rightBox .displayBox div {
+    height:180px;
+    background-repeat:no-repeat;
+    background-size:100% 100%;
+    background-position:center;
+}
+#html5Media1{
+   margin-top:-180px;
+   float:left;
+}
+.displayBox .playerView_big {
+    margin-left:-871px;
+    width:861px;
+    height:608px;
+}
+.rightBox .displayCtrlBar {
+    height:35px;
+    background-color:rgb(228,228,228);
+    padding:9px 10px 10px 10px;
+}
+.displayCtrlBar .switchBtn {
+    display:inline-block;
+    height:35px;
+    width:35px;
+    background:url(../images/switchView.png);
+    cursor:pointer;
+    float:left;
+}
+.displayCtrlBar .offMicBtn {
+    background-color:rgb(63,125,224);
+    display:inline-block;
+    height:35px;
+    line-height:35px;
+    border-radius:5px;
+    color:white;
+    font-family: "微软雅黑 Regular","微软雅黑";
+    font-size: 15px;
+    text-align: center;
+    float:left;
+    padding:0px 18px 0px 18px;
+    margin:0px 0px 0px 15px;
+    cursor:pointer;
+}
+.displayCtrlBar .adjustBtn {
+    display:inline-block;
+    float:right;
+    height:35px;
+    width:113px;
+}
+.adjustBtn .adjustHead {
+    background:url(../images/amAdjust.png) no-repeat -5px -5px;
+    height:100%;
+    width:25px;
+    float:left;
+}
+.adjustBtn .voiceValue {
+    margin-top: 5px;
+}
+.adjustBtn .micValue {
+    margin-top: 15px;
+}
+/**滑动条样式**/
+.sliderBar {
+    width: 88px;
+    float:left;
+    height: 5px;
+    background-color: rgb(134,214,251);
+    margin: 0 auto;
+    -webkit-border-radius: 2em;
+    -moz-border-radius: 2em;
+    border-radius: 2em;
+    cursor: pointer;
+}
+.slider_Track {
+    width: 0px;
+    height: 5px;
+    background-color: rgb(63,125,224);
+    -webkit-border-radius: 2em;
+    -moz-border-radius: 2em;
+    border-radius: 2em;
+}
+.slider_Thumb {
+    height: 10px;
+    width: 10px;
+    background-color: #efefef;
+    -webkit-border-radius: 2em;
+    -moz-border-radius: 2em;
+    border-radius: 2em;
+    border: 1px solid #ccc;
+    -webkit-box-shadow: 0px 0px 5px #ccc;
+    -moz-box-shadow: 0px 0px 5px #ccc;
+    box-shadow: 0px 0px 5px #ccc;
+    position: absolute;
+    margin-top: -8px;
+    cursor: pointer;
+}
+.slider_Thumb:hover {
+    background-color: rgb(63,125,224);
+    border: 1px solid #fff;
+}
+/** tabs **/
+.rightBox .tabsBox {
+    margin-top:10px;
+    height:362px;
+    border:1px solid rgb(87,102,119);
+    border-radius:8px 8px 0px 0px;
+    overflow:hidden;
+}
+.rightBox .tabsHeader {
+    height:39px;
+    border:1px solid rgb(87,102,119);
+    border-bottom:1px solid rgb(188,188,188);
+    background-color:rgb(228,228,228);
+}
+.rightBox .tabsHeader a {
+    display:inline-block;
+    background-color:rgb(201,201,201);
+    border:1px solid rgb(161,161,161);
+    border-bottom-width:0px;
+    padding:0px 15px 0px 15px;
+    height:35px;
+    line-height:35px;
+    margin:4px 0px 0px 4px;
+    float:left;
+    border-radius:5px 5px 0px 0px;
+    font-family: "Arial Negreta","Arial";
+    font-size: 14px;
+    font-weight: 700;
+    color: #333333;
+    cursor:pointer;
+    -moz-user-select: none;
+    -o-user-select:none;
+    -khtml-user-select:none;
+    -webkit-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+}
+.rightBox .tabsHeader a:hover {
+    background-color:rgb(245,245,245);    
+}
+.rightBox .tabsHeader .selectTab {
+    background-color:white;
+}
+.rightBox .tabBody {
+    border:1px solid rgb(188,188,188);
+    border-top-width:0px;
+    background-color:white;
+    height:320px;
+}
+.rightBox .chatWindow {
+    height:100%;
+}
+.tabBody .docList {
+    padding:10px 10px 0px 10px;
+    height:245px;
+    overflow:hidden;
+    overflow-y:auto;
+    border-bottom:1px solid rgb(188,188,188);
+}
+.tabBody .docList div {
+    cursor:pointer;
+    height:46px;
+    line-height:46px;
+}
+.tabBody .docList div:hover {
+    background-color:rgb(228,228,228);
+}
+.tabBody .docList div img {
+    height:37px;
+    width:48px;
+    float:left;
+    margin:5px 0px 0px 5px;
+}
+.tabBody .docList div span {
+    color: #333333;
+    font-size: 14px;
+    font-style: normal;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    height:46px;
+    width:140px;
+    display:inline-block;
+    white-space:nowrap;
+    padding-left:10px;
+}
+.tabBody .docList div a {
+    float:right;
+    color: #0099cc;
+    font-family: "微软雅黑 Regular","微软雅黑";
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    text-decoration:underline;
+    margin-right:10px;
+}
+.tabBody .docList div a:hover {
+    color: rgb(253,153,43);
+}
+.tabBody .docList .selectDoc {
+    background-color:rgb(242,242,242);
+}
+.tabBody .docList .selectDoc span {
+    font-weight:700;
+}
+.docWindow .docUploader a {
+    background-color:rgb(63,125,224);
+    display:block;
+    height:39px;
+    line-height:39px;
+    width:205px;
+    border-radius:5px;
+    color:white;
+    font-family: "微软雅黑 Regular","微软雅黑";
+    font-size: 18px;
+    text-align: center;
+    margin:auto;
+    margin-top:12px;
+    cursor:pointer;
+}
+.docWindow .docUploader .uploading {
+    color:rgb(228,228,228);
+}
+.docWindow .docUploader img {
+    height:24px;
+    width:24px;
+    margin:auto;
+    margin-top:19px;
+    padding-right:10px;
+    display:block;
+}
+.chatWindow .faceBox {
+    height:165px;
+    margin-top:-166px;
+    position:relative;
+    text-align:center;
+    background-color:white;
+    border-top:1px solid rgb(240,240,240);
+}
+.chatWindow .faceList {
+    overflow:hidden;
+    height:161px;
+    width:828px;
+    background-color:rgb(248,248,248);
+}
+.chatWindow .faceList a {
+    height:28px;
+    width:28px;
+    margin:3px;
+    display:inline-block;
+    border:1px solid rgb(248,248,248);
+    border-radius:5px;
+    cursor:pointer;
+    background-position:center;
+    background-repeat:no-repeat;
+    background-size:86% 86%;
+}
+.chatWindow .faceList a:hover {
+    border:1px solid rgb(174,174,174);
+}
+.chatWindow .faceList .noneFace,.chatWindow .faceList .noneFace:hover {
+    cursor:default;
+    border:1px solid rgb(248,248,248);
+}
+.faceBox .pageholder div {
+    margin:0px;
+    position:static;
+    width:33%;
+    height:4px;
+    float:left;
+    bottom:0px;
+    display:inline-block;
+    cursor:pointer;
+}
+.faceList .facePage {
+    height:100%;
+    float:left;
+    width:33%;
+}
+/**麦序**/
+.tabBody .micWindow {
+    font-family:"微软雅黑 Regular","微软雅黑";
+    font-size:13px;
+}
+.tabBody .micList {
+    padding:5px 8px 0px 8px;
+    height:275px;
+    overflow:hidden;
+    overflow-y:auto;
+    border-bottom:1px solid rgb(188,188,188);
+}
+.tabBody .micList div {
+    height:28px;
+    overflow:hidden;
+    line-height:28px;
+}
+.tabBody .micList div:hover {
+    background-color:rgb(228,228,228);
+}
+.tabBody .micList div img {
+    height:22px;
+    width:22px;
+    margin:3px;
+    float:left;
+}
+.tabBody .micList div span {
+    margin-left:10px;
+    width:160px;
+    display:inline-block;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    float:left;
+    cursor:default;
+}
+.tabBody .micList div a {
+    float:right;
+    color: #0099cc;
+    text-decoration:underline;
+    margin-right:10px;
+    cursor:pointer;
+}
+.tabBody .micList div a:hover {
+    color: rgb(253,153,43);
+}
+.tabBody .clearMicList {
+    background-color:#ff6a00;
+    display:block;
+    height:25px;
+    line-height:25px;
+    width:205px;
+    border-radius:5px;
+    color:white;
+    text-align: center;
+    margin:auto;
+    margin-top:5px;
+    cursor:pointer;
+}
+.tabBody .userList {
+    padding:5px 8px 0px 8px;
+    overflow:hidden;
+    overflow-y:auto;
+    height:313px;
+}
+.tabBody .userList div {
+    height:28px;
+    overflow:hidden;
+    line-height:28px;
+}
+.tabBody .userList div:hover {
+    background-color:rgb(228,228,228);
+}
+.tabBody .userList div img {
+    height:22px;
+    width:22px;
+    margin:3px;
+    float:left;
+}
+.tabBody .userList div span {
+    margin-left:10px;
+    width:190px;
+    display:inline-block;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    float:left;
+    cursor:default;
+}
+/**另一端**/
+#micFrameWrap {
+    display:none;
+    background-color:rgb(228,228,228);
+    height:281px;
+    border-bottom:1px solid rgb(128,128,128);
+}
+#micFrameWrap div {
+    height:60px;
+    text-align:center;
+    line-height:60px;
+    color:#0099cc;
+    width:100%;
+    text-align:center;
+    display:inline-block;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+#micFrame {
+    height:190px;
+    width:100%;
+    border:0px;
+    background-color:black;
+}

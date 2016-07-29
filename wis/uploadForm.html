@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <script type="text/javascript" src="http://cdn.aodianyun.com/static/jquery/jquery-1.7.2.min.js"></script>
+    <title></title>
+    <script type="text/javascript">
+        $(function () {
+            
+            $("body").append(' <form method="post" id="fileForm" enctype="multipart/form-data" action="./upload.php">'+
+                            '<input type="file" id="fileUp" name="doc" style="display:none;">'+
+                            '</form>');
+            $("#fileUp").change(function (e) {
+                var file = e.target.files || e.dataTransfer.files;
+                if (file) {
+                    $(".docUploader", window.parent.document).append("<img src='images/loading.gif' />");
+                    $(".docUploader a", window.parent.document).hide();
+                    $("#fileForm").submit();
+                }
+            });
+        })
+    </script>
+</head>
+<body style="background-color:black;">
+</body>
+</html>

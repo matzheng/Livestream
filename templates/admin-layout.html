@@ -1,0 +1,55 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>安酷在线直播管理系统</title>
+
+<link href="../../themes/lumino/css/bootstrap.min.css" rel="stylesheet">
+<link href="../../themes/lumino/css/datepicker3.css" rel="stylesheet">
+<link href="../../themes/lumino/css/styles.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+<script src="../../themes/lumino/js/html5shiv.js"></script>
+<script src="../../themes/lumino/js/respond.min.js"></script>
+<![endif]-->
+
+</head>
+
+<body>
+	
+	{% block body%}
+
+	{%endblock%}
+	
+	<script src="../../themes/lumino/js/jquery-1.11.1.min.js"></script>
+	<script src="../../themes/lumino/js/bootstrap.min.js"></script>
+	<script src="../../themes/lumino/js/chart.min.js"></script>
+<!--	
+	<script src="../../themes/lumino/js/chart-data.js"></script>
+	<script src="../../themes/lumino/js/easypiechart.js"></script>
+	<script src="../../themes/lumino/js/easypiechart-data.js"></script>
+-->
+	<script src="../../themes/lumino/js/bootstrap-datepicker.js"></script>
+	<script>
+		!function ($) {
+			$(document).on("click","ul.nav li.parent > a > span.icon", function(){		  
+				$(this).find('em:first').toggleClass("glyphicon-minus");	  
+			}); 
+			$(".sidebar span.icon").find('em:first').addClass("glyphicon-plus");
+		}(window.jQuery);
+
+		$(window).on('resize', function () {
+		  if ($(window).width() > 768) $('#sidebar-collapse').collapse('show')
+		})
+		$(window).on('resize', function () {
+		  if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
+		})
+	</script>	
+
+	{% block js%}
+
+	{%endblock%}
+</body>
+</html>
