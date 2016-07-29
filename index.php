@@ -12,13 +12,22 @@ $config = [
             'level' => Monolog\Logger::DEBUG,
             'path' => __DIR__ . '/logs/app.log',
         ],
+
+        'db' => [
+        	'host' => 'localhost',
+        	'user' => 'root',
+        	'pass' => '123456',
+        	'dbname' => 'live'
+        ],
     ],
 ];
 $app = new \Slim\App($config);
 
 $container = $app->getContainer();
 
-//使用twig template
+/**
+ * 使用twig template
+ */
 $container['view'] = function($container){
 	$view = new \Slim\Views\Twig(__DIR__.'/templates/', [
 		
@@ -30,6 +39,17 @@ $container['view'] = function($container){
 	return $view;
 };
 
+/**
+ * db
+ */
+$container['db'] = function($container){
+	$db = $container['settings']['db'];
+	$pdo = new PDO("mysql:host=".$db['host'].";dbname=".$db['dbname'], $db['user'], $db['pass']);
+};
+
+/**
+ * controler 绑定
+ */
 $container['AdminController'] = function ($container) {
     return new \AdminController($container);
 };
@@ -37,7 +57,12 @@ $container['ApiController'] = function ($container) {
     return new \ApiController($container);
 };
 
-//管理
+
+/**
+ * Routes
+ * 管理
+ * api
+ */
 $app->group('/admin', function(){
 	$this->get('', '\AdminController:index');
 });
@@ -46,4 +71,7 @@ $app->group('/api', function(){
 	$this->post('/login', '\ApiController:login');
 });
 
+/**
+ * 启动
+ */
 $app->run();
