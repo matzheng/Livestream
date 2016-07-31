@@ -1,0 +1,49 @@
+{% extends "admin-main-layout.html" %}
+
+{%block content %}
+<div class="row">
+	<ol class="breadcrumb">
+		<li><a href="#"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
+		<li class="active">用户列表</li>
+	</ol>
+</div><!--/.row-->
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">注册用户</div>
+			<div class="panel-body">
+				<div class="col-md-12">
+					<table class="table table-hover">
+					   <thead>
+					      <tr>
+					         <th>id</th>
+					         <th>公司名</th>
+					         <th>用户名</th>
+					         <th>姓名</th>
+					         <th>email</th>
+					         <th>电话</th>
+					         <th>注册时间</th>
+					      </tr>
+					   </thead>
+					   <tbody>
+					   		{%for a in users%}
+					   			<tr>
+					   				<td>{{a.uid}}</td>
+					   				<td>{{a.companyname}}</td>
+					   				<td>{{a.username}}</td>
+					   				<td>{{a.name}}</td>
+					   				<td>{{a.email}}</td>
+					   				<td>{{a.phonenum}}</td>
+					   				<td>{{a.t | date("m/d/Y")}}</td>
+					   			</tr>
+					   		{%endfor%}
+					   </tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div><!--/.row-->
+
+{%endblock%}

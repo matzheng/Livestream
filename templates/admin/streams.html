@@ -1,0 +1,103 @@
+{% extends "admin-main-layout.html" %}
+
+{%block content %}
+<div class="row">
+	<ol class="breadcrumb">
+		<li><a href="#"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
+		<li class="active">直播列表</li>
+	</ol>
+</div><!--/.row-->
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-default">
+	<div class="panel-heading">直播列表</div>
+	<div class="panel-body">
+		<div class="col-md-12">
+			<table class="table table-hover">
+			   <thead>
+			      <tr>
+			         <th>id</th>
+			         <th>标题</th>
+			         <th>描述</th>
+			         <th>价格</th>
+			         <th>主播端地址</th>
+			         <!--<th>观众端地址</th>-->
+			         <th>时间</th>
+			      </tr>
+			   </thead>
+			   <tbody>
+			   		{%for a in lives%}
+			   			<tr>
+			   				<td>{{a.aid}}</td><td>{{a.title}}</td><td>{{a.description}}</td><td>￥{{a.liveprice}}</td><td>
+			   				<a href="{{a.liveurl}}&name={{user}}" target="_blank">{{a.liveurl}}&name={{user}}</a>
+			   				</td><td>{{a.t | date("m/d/Y")}}</td>
+			   			</tr>
+			   		{%endfor%}
+			   </tbody>
+			</table>
+		</div>
+	</div>
+</div>
+	</div>
+</div><!--/.row-->
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">新增直播间</div>
+			<div class="panel-body">
+				<div class="col-md-12">
+					<div class="form-group">
+						<label>直播间名字</label>
+						<input class="form-control" type="text" id="title" placeholder="" required="">
+					</div>
+													
+					<div class="form-group">
+						<label>分类</label>
+						<select id="cate" class="form-control">
+							{%for c in cates %}
+								<option value='{{c.id}}'>{{c.name}}</option>
+							{%endfor%}
+						</select>
+					</div>
+					<div class="form-group">
+						<label>价格</label>
+						<input class="form-control" type="number" id="price" placeholder="价格" required />
+					</div>
+<button type="submit" id="btnsubmit" class="btn btn-primary">添加直播</button>			
+				</div>
+			</div>
+		</div>
+	</div><!-- /.col-->
+</div><!--/.row-->
+{%endblock%}
+
+{%block js%}
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#btnsubmit').click(function(){
+		if($('#title').val() == '' || $('#price').val() == '')
+		{
+			alert('请输入所有信息。');
+			return false;
+		}
+		
+		$.post('/api/addStream', 
+			{
+				title: $('#title').val(), cate: $('#cate option:selected').val(), price: $('#price').val()
+			}
+			, function(resp){
+				if(resp.status == 'y')
+				{
+					window.location.reload();
+				}
+				else
+				{
+					alert(resp.msg);
+				}
+		});
+	});
+});
+</script>
+{%endblock%}

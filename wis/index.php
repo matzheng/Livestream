@@ -1,4 +1,3 @@
 <?php
 // for uploadify
-phpinfo();
 ?>

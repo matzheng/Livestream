@@ -13,7 +13,7 @@
             $("#fileUp").change(function (e) {
                 var file = e.target.files || e.dataTransfer.files;
                 if (file) {
-                    $(".docUploader", window.parent.document).append("<img src='images/loading.gif' />");
+                    $(".docUploader", window.parent.document).append("<img src='/themes/live/images/loading.gif' />");
                     $(".docUploader a", window.parent.document).hide();
                     $("#fileForm").submit();
                 }

@@ -8,7 +8,8 @@ class ADConf {
 	*/
 	const	AccessId = "713612033992";
 	const	AccessKey = "0BiJ9ZqDsQFTFNcPP0hW09zBJ0lehlCz";
-	const 	TisId = "1238dcb6cbb6d62a10a3e785265dfcab";
+	const   Uin = "22279";
+	const 	TisId = "95596cacd97888e4302b1bb288024ab4";
 	const 	DmsSKey = "s_91f4b0a3993c642f657febc027e78507";
 }
 $accessId = ADConf::AccessId;

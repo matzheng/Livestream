@@ -2,6 +2,9 @@
     "require": {
         "slim/slim": "^3.0",
         "slim/twig-view": "^2.1",
-        "monolog/monolog": "^1.20"
+        "monolog/monolog": "^1.20",
+        "slim/pdo": "~1.9",
+        "dflydev/fig-cookies": "^1.0",
+        "shuber/curl": "^1.0"
     }
 }
