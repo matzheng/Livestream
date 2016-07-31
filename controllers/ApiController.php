@@ -85,18 +85,20 @@ class ApiController
 
 	public function addStream($request, $response, $args)
 	{
+	
 		$parsedBody = $request->getParsedBody();
 		$title = $parsedBody['title'];
 		$cate = $parsedBody['cate'];
 		$price = $parsedBody['price'];
 		$liveurl = time();
+		$roomurl = "http://".$request->getUri()->getHost().":".$request->getUri()->getPort()."/room?id=".$liveurl;
 		$db = $this->ci->db;
 		$sth = $db->prepare("insert into qw_live(sid, title, keywords,
 			description, thumbnail, content, liveurl,liveprice, t, n , r) 
 			values(:sid, :title,:title, '','','', :liveurl,:price,:time,0,1)");
 		$sth->bindParam(':sid', $cate, PDO::PARAM_INT);
 		$sth->bindParam(':title', $title, PDO::PARAM_STR);
-		$sth->bindParam(':liveurl', '/live?id='.$liveurl, PDO::PARAM_STR);
+		$sth->bindParam(':liveurl',$roomurl, PDO::PARAM_STR);
 		$sth->bindParam(':price', $price, PDO::PARAM_INT);
 		$sth->bindParam(':time', time(), PDO::PARAM_INT);
 		$sth->execute();

@@ -222,9 +222,10 @@ var userName = $.trim(getQueryStr("name"));
 //            "黄盖", "祖茂", "凌统", "董袭", "陈武", "吕范", "步阐", "步玑", "楼玄", "张昭", "张休", "华核", "胡综", "陆抗", "阚泽", "是仪", "桓阶", "全尚", "潘浚", "顾谭",
 //            "士燮", "朱据", "陆景", "骆统", "严畯", "诸葛诞", "诸葛瑾", "诸葛恪", "陆绩", "张纮", "张温", "虞翻", "刘基", "程秉", "薛综", "吾粲", "叫兽", "校长"
 //];
-var DefName = ["孙健"];
+var DefName = ["观众"];
 if (!userName) {
-    userName = DefName[parseInt(Math.random() * (DefName.length - 1) + 0.5)];
+    //userName = DefName[parseInt(Math.random() * (DefName.length - 1) + 0.5)];
+    userName = DefName[parseInt(Math.random() * (DefName.length - 1) + 0.5)] + parseInt(Math.random() * 10000 + 1);
 }
 if (manager) {
 //  userName += "老师";
@@ -304,9 +305,9 @@ function appendUserList(clientId, from) {
     var name = getNameFromClientId(clientId);
     if (!userMap[clientId]) {
         userMap[clientId] = name;
-        $(".userList").append('<div cltId="' + encodeURIComponent(clientId) + '"><img src="images/anonymous.png" /><span>' + name + '</span></div>');
+        $(".userList").append('<div cltId="' + encodeURIComponent(clientId) + '"><img src="../themes/live/images/anonymous.png" /><span>' + name + '</span></div>');
     } else if (userMap[clientId] != name) {
-        $('.userList div[cltId="' + encodeURIComponent(clientId) + '"]').html('<img src="images/anonymous.png" /><span>' + name + '</span>');
+        $('.userList div[cltId="' + encodeURIComponent(clientId) + '"]').html('<img src="../themes/live/images/anonymous.png" /><span>' + name + '</span>');
     }
 }
 //获取在线用户列表

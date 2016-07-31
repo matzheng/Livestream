@@ -68,6 +68,8 @@ $container['LiveController'] = function ($ci) {
  * 直播间
  */
 $app->get('/live', '\LiveController:index');
+$app->get('/room', '\LiveController:room');
+
 /**
  * Routes
  * 管理

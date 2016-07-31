@@ -22,7 +22,7 @@
 			         <th>描述</th>
 			         <th>价格</th>
 			         <th>主播端地址</th>
-			         <!--<th>观众端地址</th>-->
+			         <th>观众端地址</th>
 			         <th>时间</th>
 			      </tr>
 			   </thead>
@@ -30,8 +30,10 @@
 			   		{%for a in lives%}
 			   			<tr>
 			   				<td>{{a.aid}}</td><td>{{a.title}}</td><td>{{a.description}}</td><td>￥{{a.liveprice}}</td><td>
-			   				<a href="{{a.liveurl}}&name={{user}}" target="_blank">{{a.liveurl}}&name={{user}}</a>
-			   				</td><td>{{a.t | date("m/d/Y")}}</td>
+			   				<a href="/live?id={{a.t}}&name={{user}}&lssApp={{a.t}}&lssStream={{a.title}}&thApp={{a.t}}&thStream={{a.title}}" target="_blank">/live?id={{a.t}}&name={{user}}&lssApp={{a.t}}&lssStream={{a.title}}&thApp={{a.t}}&thStream={{a.title}}&name={{user}}</a>
+			   				</td>
+			   				<td><a href="{{a.liveurl}}" target="_blank">{{a.liveurl}}</a></td>
+			   				<td>{{a.t | date("m/d/Y")}}</td>
 			   			</tr>
 			   		{%endfor%}
 			   </tbody>
