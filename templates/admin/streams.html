@@ -67,6 +67,14 @@
 						<label>价格</label>
 						<input class="form-control" type="number" id="price" placeholder="价格" required />
 					</div>
+					<div class="form-group">
+						<label>缩略图</label>
+						<input type="file" class="form-control" id="file" placeholder="" required/>
+					</div>
+					<div class="form-group">
+						<label>课程内容</label>
+						<textarea name="content" id="content" style="width:100%;visibility:hidden;"></textarea>
+					</div>
 <button type="submit" id="btnsubmit" class="btn btn-primary">添加直播</button>			
 				</div>
 			</div>
@@ -100,6 +108,15 @@ $(document).ready(function(){
 				}
 		});
 	});
+
+	//editor
+	var editor = KindEditor.create('textarea[name="content"]',{
+				uploadJson : '/themes/kindeditor/php/upload_json.php',
+				fileManagerJson : '/themes/kindeditor/php/file_manager_json.php',
+				allowFileManager : true,
+				afterBlur:function(){this.sync();}  
+				});
+
 });
 </script>
 {%endblock%}
