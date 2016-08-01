@@ -16,6 +16,7 @@ class AdminController
 	 */
 	public function index($request, $response, $args)
 	{
+		//var_dump(md5('Q'.'jingkuna'.'W'));
 		$cookie_admin = FigRequestCookies::get($request, 'admin');
 		if($cookie_admin->getValue())
 			return $response->withRedirect('/admin/main');

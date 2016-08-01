@@ -18,7 +18,7 @@ class ApiController
 		$db = $this->ci->db;
 		$sth = $db->prepare("select * from qw_member where user=:user and password=:pwd ");
 		$sth->bindParam(':user', $parsedBody['name'], PDO::PARAM_STR);
-		$sth->bindParam(':pwd', md5($parsedBody['pwd']), PDO::PARAM_STR);
+		$sth->bindParam(':pwd', md5('Q'.$parsedBody['pwd'].'W'), PDO::PARAM_STR);
 		$sth->execute();
 		$admin = $sth->fetch(PDO::FETCH_ASSOC);
 		if($admin)
@@ -48,7 +48,7 @@ class ApiController
 		$db = $this->ci->db;
 		$sth = $db->prepare("update qw_member set password=:pwd where user=:name");
 		$sth->bindParam(':name', $user, PDO::PARAM_STR);
-		$sth->bindParam(':pwd', md5($pwd), PDO::PARAM_STR);
+		$sth->bindParam(':pwd', md5('Q'.$pwd.'W'), PDO::PARAM_STR);
 		$sth->execute();
 		return $response->withJson(
 				[
@@ -69,7 +69,7 @@ class ApiController
 		$db = $this->ci->db;
 		$sth = $db->prepare("insert into qw_member(user, password, phone , qq, email, t) values(:name, :pwd , :phone, :qq,:email,:t)");
 		$sth->bindParam(':name', $name, PDO::PARAM_STR);
-		$sth->bindParam(':pwd', md5($pwd), PDO::PARAM_STR);
+		$sth->bindParam(':pwd', md5('Q'.$pwd.'W'), PDO::PARAM_STR);
 		$sth->bindParam(':phone', $phone, PDO::PARAM_STR);
 		$sth->bindParam(':qq', $qq, PDO::PARAM_STR);
 		$sth->bindParam(':email', $email, PDO::PARAM_STR);
@@ -91,7 +91,7 @@ class ApiController
 		$cate = $parsedBody['cate'];
 		$price = $parsedBody['price'];
 		$liveurl = time();
-		$roomurl = "http://".$request->getUri()->getHost().":".$request->getUri()->getPort()."/room?id=".$liveurl;
+		$roomurl = "http://".$request->getUri()->getHost().":".$request->getUri()->getPort()."/room?id=".$liveurl."&lssApp=".$liveurl;
 		$db = $this->ci->db;
 		$sth = $db->prepare("insert into qw_live(sid, title, keywords,
 			description, thumbnail, content, liveurl,liveprice, t, n , r) 

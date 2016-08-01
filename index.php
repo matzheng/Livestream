@@ -20,7 +20,7 @@ $config = [
         'db' => [
         	'host' => '127.0.0.1',
         	'user' => 'root',
-        	'pass' => null,
+        	'pass' => '123456',
         	'dbname' => 'jxnews'
         ],
     ],
