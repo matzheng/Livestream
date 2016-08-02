@@ -90,6 +90,9 @@ class ApiController
 		$title = $parsedBody['title'];
 		$cate = $parsedBody['cate'];
 		$price = $parsedBody['price'];
+		$content = str_replace("/themes/", "http://".$request->getUri()->getHost().":"
+				.$request->getUri()->getPort()."/themes/", $parsedBody['content']);
+		$thumbnail = $parsedBody['thumbnail'];
 		$appid = time();
 		$roomurl = "http://".$request->getUri()->getHost().":"
 				.$request->getUri()->getPort()."/room?id=".$appid."&lssApp=".$appid."&thApp=".$appid."&lssStream=".$appid
@@ -97,13 +100,15 @@ class ApiController
 		$db = $this->ci->db;
 		$sth = $db->prepare("insert into qw_live(sid, title, keywords,
 			description, thumbnail, content, liveurl,liveprice, t, n , r,appid) 
-			values(:sid, :title,:title, '','','', :liveurl,:price,:time,0,1,:appid)");
+			values(:sid, :title,:title,'',:thumbnail,:content, :liveurl,:price,:time,0,1,:appid)");
 		$sth->bindParam(':sid', $cate, PDO::PARAM_INT);
 		$sth->bindParam(':title', $title, PDO::PARAM_STR);
 		$sth->bindParam(':liveurl',$roomurl, PDO::PARAM_STR);
 		$sth->bindParam(':price', $price, PDO::PARAM_INT);
 		$sth->bindParam(':time', time(), PDO::PARAM_INT);
 		$sth->bindParam(':appid', $appid, PDO::PARAM_INT);
+		$sth->bindParam(':content', $content, PDO::PARAM_STR);
+		$sth->bindParam(':thumbnail', $thumbnail, PDO::PARAM_STR);
 		$sth->execute();
 
 		$curl = new Curl;
@@ -116,5 +121,61 @@ class ApiController
 					'msg' => '添加成功。'
 				]
 			);
+	}
+
+	public function editStream($request, $response, $args)
+	{
+		$parsedBody = $request->getParsedBody();
+		$title = $parsedBody['title'];
+		$cate = $parsedBody['cate'];
+		$price = $parsedBody['price'];
+		$content = str_replace("\"/themes/", "\"http://".$request->getUri()->getHost().":"
+				.$request->getUri()->getPort()."/themes/", $parsedBody['content']);
+		$appid = $parsedBody['appid'];
+		$thumbnail = $parsedBody['thumbnail'];
+
+		$db = $this->ci->db;
+		$sth = $db->prepare("update qw_live
+			set title=:title, sid=:sid, content=:content, t=:t, liveprice=:price, thumbnail=:thumbnail 
+			where aid=:id");
+		$sth->bindParam(':id', $request->getQueryParams()['id'], PDO::PARAM_INT);
+		$sth->bindParam(':title', $title, PDO::PARAM_STR);
+		$sth->bindParam(':sid', $cate, PDO::PARAM_INT);
+		$sth->bindParam(':content', $content, PDO::PARAM_STR);
+		$sth->bindParam(':t', time(), PDO::PARAM_INT);
+		$sth->bindParam(':price', $price, PDO::PARAM_INT);
+		$sth->bindParam(':thumbnail', $thumbnail, PDO::PARAM_STR);
+		$sth->execute();
+
+		$curl = new Curl;
+		$curlResp = $curl->post('http://openapi.aodianyun.com/v2/LSS.EditName'
+			, '{"access_id":"'.ADConf::AccessId.'","access_key":"'.ADConf::AccessKey.'","appid":"'.$appid.'","appname":"'.$title.'"}');
+
+		return $response->withJson(
+				[
+					'status' => 'y',
+					'msg' => '修改成功。'
+				]
+			);
+	}
+
+	public function deleteStream($request, $response, $args)
+	{
+		$parsedBody = $request->getParsedBody();
+		$id = $parsedBody['id'];
+		$appid = $parsedBody['appid'];
+
+		$db = $this->ci->db;
+		$sth = $db->prepare('delete from qw_live where aid=:id');
+		$sth->bindParam(':id', $id, PDO::PARAM_INT);
+		$sth->execute();
+
+		$curl = new Curl;
+		$curlResp = $curl->post('http://openapi.aodianyun.com/v2/LSS.CloseApp'
+			, '{"access_id":"'.ADConf::AccessId.'","access_key":"'.ADConf::AccessKey.'","appid":"'.$appid.'"}');
+		return $response->withJson([
+				'status' => 'y',
+				'msg' => '删除成功'
+			]);
 	}
 }

@@ -116,11 +116,33 @@ class AdminController
 		$cookie_admin = FigRequestCookies::get($request, 'admin');
 		return $this->ci->view->render($response, '/admin/streams.html', [
 			'user' => $cookie_admin->getValue(),
+			'uin' => ADConf::Uin,
 			'lives' => $lives,
 			'cates' => $cates
 			]);
 	}
 
+	public function streamdetail($request, $response, $args)
+	{
+		//分类
+		$db = $this->ci->db;
+		$sth = $db->prepare("select * from qw_livecate");
+		$sth->execute();
+		$cates = $sth->fetchAll(PDO::FETCH_ASSOC);
+
+		//直播详情
+		$sth = $db->prepare("select * from qw_live where aid=:id");
+		$sth->bindParam(':id', $request->getQueryParams()['id'], PDO::PARAM_INT);
+		$sth->execute();
+		$stream = $sth->fetch(PDO::FETCH_ASSOC);
+
+		$cookie_admin = FigRequestCookies::get($request, 'admin');
+		return $this->ci->view->render($response, '/admin/streamdetail.html', [
+				'user' => $cookie_admin->getValue(),
+				'cates' => $cates,
+				'stream' => $stream
+			]);
+	}
 	/**
 	 * 订单列表
 	 */

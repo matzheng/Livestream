@@ -4,6 +4,7 @@ require_once __DIR__.'/vendor/autoload.php';
 require_once __DIR__.'/controllers/ApiController.php';
 require_once __DIR__.'/controllers/AdminController.php';
 require_once __DIR__.'/controllers/LiveController.php';
+require_once __DIR__.'/controllers/UploadController.php';
 require_once __DIR__.'/middlewares/AdminAuthMiddleware.php';
 require_once __DIR__.'/vendor/shuber/curl/curl.php';
 require_once __DIR__.'/conf.php';
@@ -20,7 +21,7 @@ $config = [
         'db' => [
         	'host' => '127.0.0.1',
         	'user' => 'root',
-        	'pass' => null,
+        	'pass' => '123456',
         	'dbname' => 'jxnews'
         ],
     ],
@@ -63,13 +64,17 @@ $container['ApiController'] = function ($ci) {
 $container['LiveController'] = function ($ci) {
     return new \LiveController($ci);
 };
+$container['UploadController'] = function ($ci) {
+    return new \UploadController($ci);
+};
 
 /**
  * 直播间
  */
 $app->get('/live', '\LiveController:index');
 $app->get('/room', '\LiveController:room');
-
+$app->get('/upload','\UploadController:index');
+$app->post('/upload','\UploadController:upload');
 /**
  * Routes
  * 管理
@@ -82,15 +87,21 @@ $app->group('/admin', function(){
     $this->get('/logout', '\AdminController:logout');
     $this->get('/adminlist', '\AdminController:adminlist');
     $this->get('/streams', '\AdminController:streams');
+    $this->get('/streamdetail', '\AdminController:streamdetail');
     $this->get('/orders', '\AdminController:orders');
     $this->get('/users', '\AdminController:users');
 });
 
+/**
+ * API
+ */
 $app->group('/api', function(){
 	$this->post('/login', '\ApiController:login');
     $this->post('/changepwd', '\ApiController:changepwd');
     $this->post('/addAdmin', '\ApiController:addAdmin');
     $this->post('/addStream', '\ApiController:addStream');
+    $this->post('/editStream', '\ApiController:editStream');
+    $this->post('/deleteStream', '\ApiController:deleteStream');
 });
 
 /**

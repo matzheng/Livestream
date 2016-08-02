@@ -448,7 +448,7 @@ function onMicListClear(data) {
 function onHandUp(data) {
     if ($(".micList").children().length < 10 && !micList[data.clientId]) {
         micList[data.clientId] = true;
-        var html = '<div clientId="' + encodeURIComponent(data.clientId) + '"><img src="images/anonymous.png" /><span>' + getNameFromClientId(data.clientId) + '</span>' + 
+        var html = '<div clientId="' + encodeURIComponent(data.clientId) + '"><img src="../themes/live/images/anonymous.png" /><span>' + getNameFromClientId(data.clientId) + '</span>' + 
         (manager ? ('<a onclick="startPlay(\'' + data.clientId + "','" + data.app + "','" + data.stream + "'" + ');">发言</a></div>') : ('</div>'))
         $(".micList").append(html);
     }

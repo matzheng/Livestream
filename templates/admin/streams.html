@@ -19,21 +19,26 @@
 			      <tr>
 			         <th>id</th>
 			         <th>标题</th>
-			         <th>描述</th>
+			         <!--<th>描述</th>-->
 			         <th>价格</th>
+			         <th>发布地址</th>
 			         <th>主播端地址</th>
 			         <th>观众端地址</th>
 			         <th>时间</th>
+			         <th>删除</th>
 			      </tr>
 			   </thead>
 			   <tbody>
 			   		{%for a in lives%}
 			   			<tr>
-			   				<td>{{a.aid}}</td><td>{{a.title}}</td><td>{{a.description}}</td><td>￥{{a.liveprice}}</td><td>
+			   				<td>{{a.aid}}</td><td><a href="/admin/streamdetail?id={{a.aid}}">{{a.title}}</a></td><!--<td>{{a.description}}</td>--><td>￥{{a.liveprice}}</td>
+			   				<td>rtmp://{{uin}}.lsspublish.aodianyun.com/{{a.appid}}/{{a.appid}}</td>
+			   				<td>
 			   				<a href="/live?id={{a.appid}}&name={{user}}&thApp={{a.appid}}&lssApp={{a.appid}}&thStream={{a.appid}}&lssStream={{a.appid}}" target="_blank">点击打开</a>
 			   				</td>
 			   				<td><a href="{{a.liveurl}}" target="_blank">点击打开</a></td>
 			   				<td>{{a.t | date("m/d/Y")}}</td>
+			   				<td><button class="btn btn-primary del" data-id="{{a.aid}}" data-appid="{{a.appid}}" data-title="{{a.title}}">删除</button></td>
 			   			</tr>
 			   		{%endfor%}
 			   </tbody>
@@ -69,10 +74,13 @@
 					</div>
 					<div class="form-group">
 						<label>缩略图</label>
-						<input type="file" class="form-control" id="file" placeholder="" required/>
+						<div class="row">
+							<iframe scrolling="no" frameborder="0" border="0" width="100" height="103" src="/upload?Width=100&Height=100&BackCall=thumbnail&Img="></iframe>
+							<input type="hidden" name="thumbnail" id="thumbnail" value="">
+						</div>
 					</div>
 					<div class="form-group">
-						<label>课程内容</label>
+						<label>直播内容</label>
 						<textarea name="content" id="content" style="width:100%;visibility:hidden;"></textarea>
 					</div>
 <button type="submit" id="btnsubmit" class="btn btn-primary">添加直播</button>			
@@ -95,7 +103,8 @@ $(document).ready(function(){
 		
 		$.post('/api/addStream', 
 			{
-				title: $('#title').val(), cate: $('#cate option:selected').val(), price: $('#price').val()
+				title: $('#title').val(), cate: $('#cate option:selected').val(), 
+				thumbnail: $('#thumbnail').val(), price: $('#price').val(), content: $('#content').val()
 			}
 			, function(resp){
 				if(resp.status == 'y')
@@ -116,6 +125,25 @@ $(document).ready(function(){
 				allowFileManager : true,
 				afterBlur:function(){this.sync();}  
 				});
+
+	$('.del').each(function(index, element){
+		$(element).click(function(){
+			if(confirm('确定删除[' + $(element).data('title') + ']?'))
+			{
+				$.post("/api/deleteStream", {id: $(element).data('id'), appid:$(element).data('appid')}, function(resp){
+					if(resp.status == 'y')
+					{
+						window.location.href = "/admin/streams";
+					}
+					else
+					{
+						alert('请联系管理员');
+					}
+				});
+			}
+		});
+		
+	});
 
 });
 </script>
