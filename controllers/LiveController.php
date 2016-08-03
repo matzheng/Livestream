@@ -64,5 +64,10 @@ class LiveController
 		
 		}
 	}
+
+	public function test($request, $response, $args)
+	{
+		return $this->ci->view->render($response, '/live/test.html',[]);
+	}
 		
 }

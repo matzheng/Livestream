@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+<div id="videoPlayer"></div>
+<script type="text/javascript" charset="utf-8" src="http://cdn.aodianyun.com/static/jquery/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="http://cdn.aodianyun.com/lss/aodianplay/player.js"></script>
+<script type="text/javascript">
+var w = "320";//视频宽度
+var h = "240";//视频高度
+var url = "http://22279.live-vod.cdn.aodianyun.com/m3u8/0x0/1470228932.1470228932.1470232866/1470228932.1470228932.1470232866.m3u8";//视频地址
+var image = "http://cdn.dvr.aodianyun.com/pic/live-vod/images/1470228932.1470228932.1470232866/0/0";//封面图片
+var objectPlayer=new aodianPlayer({
+  container:'videoPlayer',//播放器容器ID，必要参数
+  hlsUrl: url,//控制台开通的APP hls地址，必要参数
+  /* 以下为可选参数*/
+  width: w,//播放器宽度，可用数字、百分比等
+  height: h,//播放器高度，可用数字、百分比等
+  autostart: true,//是否自动播放，默认为false
+  controlbardisplay: 'enable',//是否显示控制栏，值为：disable、enable默认为disable。
+  adveDeAddr: image,//封面图片链接
+  adveWidth: w,//封面图宽度
+  adveHeight: h,//封面图高度
+  //adveReAddr: ''//封面图点击链接
+});
+</script>
+</body>
+</html>

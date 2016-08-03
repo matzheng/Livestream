@@ -109,6 +109,7 @@ $container['UploadController'] = function ($ci) {
  */
 $app->get('/live', '\LiveController:index');
 $app->get('/room', '\LiveController:room');
+$app->get('/test', '\LiveController:test');
 $app->get('/upload','\UploadController:index');
 $app->post('/upload','\UploadController:upload');
 /**
