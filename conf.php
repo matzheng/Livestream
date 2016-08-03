@@ -9,8 +9,15 @@ class ADConf {
 	const	AccessId = "713612033992";
 	const	AccessKey = "0BiJ9ZqDsQFTFNcPP0hW09zBJ0lehlCz";
 	const   Uin = "22279";
-	const 	TisId = "95596cacd97888e4302b1bb288024ab4";
-	const 	DmsSKey = "s_91f4b0a3993c642f657febc027e78507";
+	const 	TisId = "48d30a7c9dd14bc9ef0525ef2b547443";
+	const 	DmsSKey = "s_5821e7e771de130c24d5d86fdc393d0d";
+}
+class DBConf
+{
+	const host = "127.0.0.1";
+	const user = "root";
+	const password = "123456";
+	const dbname = "jxnews";
 }
 $accessId = ADConf::AccessId;
 $accessKey = ADConf::AccessKey;

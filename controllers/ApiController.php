@@ -93,14 +93,24 @@ class ApiController
 		$content = str_replace("/themes/", "http://".$request->getUri()->getHost().":"
 				.$request->getUri()->getPort()."/themes/", $parsedBody['content']);
 		$thumbnail = $parsedBody['thumbnail'];
+		$tisid = $parsedBody['tisid'];
 		$appid = time();
-		$roomurl = "http://".$request->getUri()->getHost().":"
-				.$request->getUri()->getPort()."/room?id=".$appid."&lssApp=".$appid."&thApp=".$appid."&lssStream=".$appid
-				."&thStream=".$appid;
 		$db = $this->ci->db;
 		$sth = $db->prepare("insert into qw_live(sid, title, keywords,
-			description, thumbnail, content, liveurl,liveprice, t, n , r,appid) 
-			values(:sid, :title,:title,'',:thumbnail,:content, :liveurl,:price,:time,0,1,:appid)");
+			description, thumbnail, content, liveurl,liveprice, t, n , r,appid, wisid, tisid) 
+			values(:sid, :title,:title,'',:thumbnail,:content, :liveurl,:price,:time,0,1,:appid, :wisid, :tisid)");
+
+		//开通lssApp
+		$curl = new Curl;
+		$curlResp = $curl->post('http://openapi.aodianyun.com/v2/LSS.OpenApp'
+			, '{"access_id":"'.ADConf::AccessId.'","access_key":"'.ADConf::AccessKey.'","appid":"'.$appid.'","appname":"'.$title.'"}');
+		//开通wis白板
+		$wisAPI = new WisApi(ADConf::AccessId,ADConf::AccessKey);
+		$rst = $wisAPI->CreateWis(array("dmsSecKey" => ADConf::DmsSKey, "desc" => $title));
+
+		$roomurl = "http://".$request->getUri()->getHost().":"
+				.$request->getUri()->getPort()."/room?id=".$appid."&lssApp=".$appid."&thApp=".$appid."&lssStream=".$appid
+				."&thStream=".$appid."&wisId=".$rst["Info"]["wisId"]."&tisId=".$tisid;
 		$sth->bindParam(':sid', $cate, PDO::PARAM_INT);
 		$sth->bindParam(':title', $title, PDO::PARAM_STR);
 		$sth->bindParam(':liveurl',$roomurl, PDO::PARAM_STR);
@@ -109,11 +119,10 @@ class ApiController
 		$sth->bindParam(':appid', $appid, PDO::PARAM_INT);
 		$sth->bindParam(':content', $content, PDO::PARAM_STR);
 		$sth->bindParam(':thumbnail', $thumbnail, PDO::PARAM_STR);
+		$sth->bindParam(':wisid', $rst["Info"]["wisId"], PDO::PARAM_STR);
+		$sth->bindParam(':tisid', $tisid, PDO::PARAM_STR);
+		//录入数据库
 		$sth->execute();
-
-		$curl = new Curl;
-		$curlResp = $curl->post('http://openapi.aodianyun.com/v2/LSS.OpenApp'
-			, '{"access_id":"'.ADConf::AccessId.'","access_key":"'.ADConf::AccessKey.'","appid":"'.$appid.'","appname":"'.$title.'"}');
 
 		return $response->withJson(
 				[
@@ -133,10 +142,15 @@ class ApiController
 				.$request->getUri()->getPort()."/themes/", $parsedBody['content']);
 		$appid = $parsedBody['appid'];
 		$thumbnail = $parsedBody['thumbnail'];
+		$tisid = $parsedBody['tisid'];
+		$wisid = $parsedBody['wisid'];
+		$liveurl = "http://".$request->getUri()->getHost().":"
+				.$request->getUri()->getPort()."/room?id=".$appid."&lssApp=".$appid."&thApp=".$appid."&lssStream=".$appid
+				."&thStream=".$appid."&wisId=".$wisid."&tisId=".$tisid;
 
 		$db = $this->ci->db;
 		$sth = $db->prepare("update qw_live
-			set title=:title, sid=:sid, content=:content, t=:t, liveprice=:price, thumbnail=:thumbnail 
+			set title=:title, sid=:sid, content=:content, t=:t, liveprice=:price, thumbnail=:thumbnail, tisid=:tisid, liveurl=:liveurl
 			where aid=:id");
 		$sth->bindParam(':id', $request->getQueryParams()['id'], PDO::PARAM_INT);
 		$sth->bindParam(':title', $title, PDO::PARAM_STR);
@@ -145,6 +159,8 @@ class ApiController
 		$sth->bindParam(':t', time(), PDO::PARAM_INT);
 		$sth->bindParam(':price', $price, PDO::PARAM_INT);
 		$sth->bindParam(':thumbnail', $thumbnail, PDO::PARAM_STR);
+		$sth->bindParam(':tisid', $tisid, PDO::PARAM_STR);
+		$sth->bindParam(':liveurl', $liveurl, PDO::PARAM_STR);
 		$sth->execute();
 
 		$curl = new Curl;

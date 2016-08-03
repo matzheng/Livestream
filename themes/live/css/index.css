@@ -1,7 +1,8 @@
 ﻿body {
     margin:0px;
     padding:0px;
-    background-color:rgb(98,115,135);
+    /*background-color:rgb(98,115,135);*/
+    background-color: #222;
     height:100%;
 }
 a {
@@ -26,7 +27,7 @@ a {
     font-family: "微软雅黑 Regular","微软雅黑";
     font-size:22px;
     color:white;
-    line-height:60px;
+    line-height:85px;
     margin-left:80px;
 }
 .topBar .rightLabel {

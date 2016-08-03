@@ -8,6 +8,8 @@ require_once __DIR__.'/controllers/UploadController.php';
 require_once __DIR__.'/middlewares/AdminAuthMiddleware.php';
 require_once __DIR__.'/vendor/shuber/curl/curl.php';
 require_once __DIR__.'/conf.php';
+require_once __DIR__.'/wis/wis.php';
+
 $config = [
     'settings' => [
         'displayErrorDetails' => true,
@@ -17,13 +19,14 @@ $config = [
             'level' => Monolog\Logger::DEBUG,
             'path' => __DIR__ . '/logs/app.log',
         ],
-
+/*
         'db' => [
         	'host' => '127.0.0.1',
         	'user' => 'root',
         	'pass' => '123456',
         	'dbname' => 'jxnews'
         ],
+*/
     ],
 ];
 $app = new \Slim\App($config);
@@ -46,7 +49,7 @@ $container['view'] = function($container){
  
 $container['db'] = function($container){
 	$db = $container['settings']['db'];
-	$pdo = new PDO("mysql:host=".$db['host'].";dbname=".$db['dbname'].";charset=utf8", $db['user'], $db['pass']);
+	$pdo = new PDO("mysql:host=".DBConf::host.";dbname=".DBConf::dbname.";charset=utf8", DBConf::user, DBConf::password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     return $pdo;

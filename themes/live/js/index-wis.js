@@ -35,7 +35,7 @@ var manager = wisJsArgs["manager"] ? wisJsArgs["manager"] != "0" : true;    //�
 var wisWidth = wisJsArgs["wisWidth"] ? parseInt(wisJsArgs["wisWidth"]) : 784;   //白板宽度
 var wisHeight = wisJsArgs["wisWidth"] ? parseInt(wisJsArgs["wisHeight"]) : 550; //白板高度
 var wisId = getQueryStr("wisId");
-wisId = wisId ? wisId : "b3a081baabc47aacf067a60e4cae3e52";     //修改为自己的wisId
+wisId = wisId ? wisId : "lc_04414dfb130f8e4a48482e653f49df3d";     //修改为自己的wisId
 var pageNum = 0;
 var drawLocked = false, drawAlpha = 1, drawTrack = false;
 var docObject;
@@ -199,7 +199,7 @@ function initWIS(handler) {
 /****************************************** TIS文字互动相关 ******************************************/
 //TIS相关参数
 var tisId = getQueryStr("tisId");
-tisId = tisId ? tisId : "95596cacd97888e4302b1bb288024ab4";     //修改为自己的tisId
+tisId = tisId ? tisId : "1238dcb6cbb6d62a10a3e785265dfcab";     //修改为自己的tisId
 var userMap = {}
 var userName = $.trim(getQueryStr("name"));
 //var DefName = [

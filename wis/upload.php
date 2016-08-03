@@ -8,7 +8,7 @@ if(strpos($_FILES['pic']['type'], 'ppt') === false){
 	
 }*/
 $size = $_FILES['doc']['size']/(pow(1024, 2));
-if($size > 20){
+if($size > 100){
 	echo '<script type="text/javascript">window.parent.loadDocList("文件过大")</script>';
 	exit;
 }

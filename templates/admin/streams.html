@@ -22,6 +22,7 @@
 			         <!--<th>描述</th>-->
 			         <th>价格</th>
 			         <th>发布地址</th>
+			         <th>tis</th>
 			         <th>主播端地址</th>
 			         <th>观众端地址</th>
 			         <th>时间</th>
@@ -33,8 +34,8 @@
 			   			<tr>
 			   				<td>{{a.aid}}</td><td><a href="/admin/streamdetail?id={{a.aid}}">{{a.title}}</a></td><!--<td>{{a.description}}</td>--><td>￥{{a.liveprice}}</td>
 			   				<td>rtmp://{{uin}}.lsspublish.aodianyun.com/{{a.appid}}/{{a.appid}}</td>
-			   				<td>
-			   				<a href="/live?id={{a.appid}}&name={{user}}&thApp={{a.appid}}&lssApp={{a.appid}}&thStream={{a.appid}}&lssStream={{a.appid}}" target="_blank">点击打开</a>
+			   				<td>{{a.tisid}}</td><td>
+			   				<a href="/live?id={{a.appid}}&name={{user}}&thApp={{a.appid}}&lssApp={{a.appid}}&thStream={{a.appid}}&lssStream={{a.appid}}&wisId={{a.wisid}}&tisId={{a.tisid}}" target="_blank">点击打开</a>
 			   				</td>
 			   				<td><a href="{{a.liveurl}}" target="_blank">点击打开</a></td>
 			   				<td>{{a.t | date("m/d/Y")}}</td>
@@ -58,8 +59,7 @@
 					<div class="form-group">
 						<label>直播间名字</label>
 						<input class="form-control" type="text" id="title" placeholder="" required="">
-					</div>
-													
+					</div>								
 					<div class="form-group">
 						<label>分类</label>
 						<select id="cate" class="form-control">
@@ -67,6 +67,10 @@
 								<option value='{{c.id}}'>{{c.name}}</option>
 							{%endfor%}
 						</select>
+					</div>
+					<div class="form-group">
+						<label>奥点云文字互动tis <a href="http://console.aodianyun.com/tis/" target="_blank">帮助</a></label>
+						<input class="form-control" type="text" id="tisid" placeholder="请输入奥点云文字互动tis的实例ID，DMS实例选: aodian-scene-1468818719" required/>
 					</div>
 					<div class="form-group">
 						<label>价格</label>
@@ -104,7 +108,8 @@ $(document).ready(function(){
 		$.post('/api/addStream', 
 			{
 				title: $('#title').val(), cate: $('#cate option:selected').val(), 
-				thumbnail: $('#thumbnail').val(), price: $('#price').val(), content: $('#content').val()
+				thumbnail: $('#thumbnail').val(), price: $('#price').val(), content: $('#content').val(),
+				tisid: $("#tisid").val()
 			}
 			, function(resp){
 				if(resp.status == 'y')

@@ -6,14 +6,15 @@ class AdminAuthMiddleware
 	public function __invoke($request, $response, $next)
     {
         $cookie_admin = FigRequestCookies::get($request, 'admin');
+        $response = $next($request, $response);
 		if(!$cookie_admin->getValue())
 		{
-			return $response->withHeader("Location","/admin");
+			$response->withHeader("Location","/admin");
 		}
 		else
 		{
-			return $response->withHeader('Location', $request->getUri()->getPath());
+			$response->withHeader('Location', $request->getUri()->getPath());
 		}
-        
+        return $response;
     }
 }

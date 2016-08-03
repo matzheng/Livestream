@@ -8,7 +8,7 @@ if(strpos($_FILES['pic']['type'], 'ppt') === false){
 	
 }*/
 $size = $_FILES['doc']['size']/(pow(1024, 2));
-if($size > 20){
+if($size > 100){
 	echo '文件过大';
 	exit;
 }

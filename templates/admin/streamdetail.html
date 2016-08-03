@@ -29,6 +29,10 @@
 						</select>
 					</div>
 					<div class="form-group">
+						<label>奥点云文字互动tis <a href="http://console.aodianyun.com/tis/" target="_blank">帮助</a></label>
+						<input class="form-control" type="text" id="tisid" value="{{stream['tisid']}}" placeholder="请输入奥点云文字互动tis的实例ID，DMS实例选: aodian-scene-1468818719" required/>
+					</div>
+					<div class="form-group">
 						<label>价格</label>
 						<input class="form-control" type="number" id="price" placeholder="价格" value="{{stream['liveprice']}}" required />
 					</div>
@@ -65,7 +69,8 @@ $(document).ready(function(){
 			{
 				title: $('#title').val(), cate: $('#cate option:selected').val(), 
 				price: $('#price').val(), content: $('#content').val(),
-				appid: {{stream['appid']}}, thumbnail: $('#thumbnail').val(),
+				appid: '{{stream['appid']}}', thumbnail: $('#thumbnail').val(),
+				tisid: $('#tisid').val(), wisid: '{{stream['wisid']}}'
 			}
 			, function(resp){
 				if(resp.status == 'y')
