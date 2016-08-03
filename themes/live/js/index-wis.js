@@ -29,10 +29,11 @@ function getQueryStr(str) {
 }
 var wisJsArgs = getLastScriptArgs();
 var manager = wisJsArgs["manager"] ? wisJsArgs["manager"] != "0" : true;    //区分教师端和学生端
+var mobile = wisJsArgs["mobile"] == "1" ? true : false; //是否移动端
 
 /****************************************** WIS白板相关 ******************************************/
 //WIS相关参数
-var wisWidth = wisJsArgs["wisWidth"] ? parseInt(wisJsArgs["wisWidth"]) : 784;   //白板宽度
+var wisWidth = mobile ? window.screen.width - 30 : (wisJsArgs["wisWidth"] ? parseInt(wisJsArgs["wisWidth"]) : 784);   //白板宽度
 var wisHeight = wisJsArgs["wisWidth"] ? parseInt(wisJsArgs["wisHeight"]) : 550; //白板高度
 var wisId = getQueryStr("wisId");
 wisId = wisId ? wisId : "lc_04414dfb130f8e4a48482e653f49df3d";     //修改为自己的wisId

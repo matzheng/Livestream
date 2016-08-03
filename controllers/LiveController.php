@@ -49,6 +49,7 @@ class LiveController
 		$sth->bindParam(':t', $id, PDO::PARAM_INT);
 		$sth->execute();
 		$live = $sth->fetch(PDO::FETCH_ASSOC);
+		
 		if($this->ci->ismobile)
 		{
 			return $this->ci->view->render($response, '/live/room-mobile.html', [
@@ -60,6 +61,7 @@ class LiveController
 			return $this->ci->view->render($response, '/live/room.html', [
 				'live' => $live
 			]);
+		
 		}
 	}
 		

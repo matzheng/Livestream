@@ -15,9 +15,9 @@
     <script type="text/javascript" src="http://cdn.aodianyun.com/lss/aodianplay/player.js"></script>
     <script type="text/javascript" src="http://cdn.aodianyun.com/lss/aodianpublish/publish.js"></script>
     <script src="http://cdn.aodianyun.com/wis/app.js"></script>
-     <script src="http://cdn.aodianyun.com/wis/api.js"></script>
+    <script src="http://cdn.aodianyun.com/wis/api.js"></script>
     <script src="../themes/live/js/index-ui-c.js"></script>
-    <script src="../themes/live/js/index-wis.js?wisWidth=400&wisHeight=200&manager=0"></script>
+    <script src="../themes/live/js/index-wis.js?wisWidth=320&wisHeight=260&manager=0&mobile=1"></script>
     <!--Tis默认UI样式-->
     <link href="http://cdn.aodianyun.com/tis/ui/default/css/jquery.splitter.css" rel="stylesheet" />
     <link href="http://cdn.aodianyun.com/tis/shared/css/idangerous.swiper.css" rel="stylesheet" />
@@ -51,6 +51,120 @@
     color:white;
     line-height:60px;
     margin-right:10px;
+}
+/**麦序**/
+.tabBody .micWindow {
+    font-family:"微软雅黑 Regular","微软雅黑";
+    font-size:13px;
+}
+.tabBody .micList {
+    padding:5px 8px 0px 8px;
+    height:275px;
+    overflow:hidden;
+    overflow-y:auto;
+    border-bottom:1px solid rgb(188,188,188);
+}
+.tabBody .micList div {
+    height:28px;
+    overflow:hidden;
+    line-height:28px;
+}
+.tabBody .micList div:hover {
+    background-color:rgb(228,228,228);
+}
+.tabBody .micList div img {
+    height:22px;
+    width:22px;
+    margin:3px;
+    float:left;
+}
+.tabBody .micList div span {
+    margin-left:10px;
+    width:160px;
+    display:inline-block;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    float:left;
+    cursor:default;
+}
+.tabBody .micList div a {
+    float:right;
+    color: #0099cc;
+    text-decoration:underline;
+    margin-right:10px;
+    cursor:pointer;
+}
+.tabBody .micList div a:hover {
+    color: rgb(253,153,43);
+}
+.tabBody .clearMicList {
+    background-color:#ff6a00;
+    display:block;
+    height:25px;
+    line-height:25px;
+    width:205px;
+    border-radius:5px;
+    color:white;
+    text-align: center;
+    margin:auto;
+    margin-top:5px;
+    cursor:pointer;
+}
+.tabBody .userList {
+    padding:5px 8px 0px 8px;
+    overflow:hidden;
+    overflow-y:auto;
+    height:313px;
+}
+.tabBody .userList div {
+    height:28px;
+    overflow:hidden;
+    line-height:28px;
+}
+.tabBody .userList div:hover {
+    background-color:rgb(228,228,228);
+}
+.tabBody .userList div img {
+    height:22px;
+    width:22px;
+    margin:3px;
+    float:left;
+}
+.tabBody .userList div span {
+    margin-left:10px;
+    width:190px;
+    display:inline-block;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    float:left;
+    cursor:default;
+}
+/**另一端**/
+#micFrameWrap {
+    display:none;
+    background-color:rgb(228,228,228);
+    height:281px;
+    border-bottom:1px solid rgb(128,128,128);
+}
+#micFrameWrap div {
+    height:60px;
+    text-align:center;
+    line-height:60px;
+    color:#0099cc;
+    width:100%;
+    text-align:center;
+    display:inline-block;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+#micFrame {
+    height:190px;
+    width:100%;
+    border:0px;
+    background-color:black;
 }
     </style>
     <script type="text/javascript">
@@ -116,46 +230,36 @@
         </div>                            
     </div><!-- /.container-fluid -->
 </nav>
-<div class="col-sm-12 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
-    <div class="row"><div class="breadcrumb">{{live.title}}</div></div>
+<div class="container-fluid">
     <div class="row">
-        <div id="wis_context">
-            <div id="wis_context_inner">
+    <div class="col-sm-12 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+        <!--<div class="row"><div class="breadcrumb">{{live.title}}</div></div>-->
+            <div id="wis_context">
+                <div id="wis_context_inner">
+                </div>
             </div>
         </div>
     </div>
 </div>
-<div class="mainBody">
-<table class="centerHolder">
-<tr>
-<td>
-    <div class="content" id="content">
-        <div class="leftBox" id="leftBox" >
-            <div class="boardView" id="boardView" style="padding:0px;width:100%;height:100%;">
-                <div class="boardBox" id="boardBox" style="width:100%;height:100%;">
-                    
-                </div>
-            </div>
-            <div style="display:none;" class="videoView" id="videoView"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+            <div style="" class="videoView" id="videoView"></div>
         </div>
-        <div class="rightBox">
-            <div class="videoBox">
-                <div class="displayBox" id="displayBox"><div id="playerView"></div></div>
-                <div class="displayCtrlBar">
-                    <a class="switchBtn" onclick="switchView()"></a>
-                    <a class="offMicBtn tis-disableSelect" style="padding:0px 10px 0px 10px">申请发言</a>
-                    <a class="adjustBtn">
-                        <div class="adjustHead"></div>
-                        <div class="sliderBar voiceValue"></div>
-                        <div class="sliderBar micValue"></div>
-                    </a>
-                </div>
-            </div>
+        <div class="col-sm-12 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+            <div id="playerView"></div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div>
             <div class="tabsBox">
                 <div class="tabsHeader">
                     <a onclick="switchTab(this,'#tabBody1');" class="selectTab" href="javascript:tissplit.refresh()">聊天</a>
                     <a onclick="switchTab(this, '#tabBody3');">用户</a>
-                    <a id="micTabBtn" onclick="switchTab(this, '#tabBody4');">麦序</a>
+                    <!--<a id="micTabBtn" onclick="switchTab(this, '#tabBody4');">麦序</a>-->
                 </div>
                 <div class="tabBody">
                     <div id="tabBody1" class="tis-container chatWindow"></div>
@@ -167,10 +271,10 @@
                         </div>
                         <iframe id="uploadForm" style="height:0px;width:0px;display:none;"></iframe>
                     </div>
-                    <div id="tabBody3" >
+                    <div id="tabBody3" style="display:none;">
                         <div class="userList"></div>
                     </div>
-                    <div id="tabBody4" class="micWindow">
+                    <div id="tabBody4" class="micWindow" style="display:none;">
                         <div id="micFrameWrap">
                             <div>当前发言者：<span id="curMicIdLabel"></span></div>
                             <iframe id="micFrame" frameborder="0"></iframe>
@@ -184,11 +288,34 @@
             </div>
         </div>
     </div>
+</div>
+<!--
+<div class="mainBody">
+<table class="centerHolder">
+<tr>
+<td>
+    <div class="content" id="content">
+        <div class="rightBox">
+            <div class="videoBox">
+                <div class="displayBox" id="displayBox"><div id="playerView"></div></div>
+                <div class="displayCtrlBar">
+                    <a class="switchBtn" onclick="switchView()"></a>
+                    <a class="offMicBtn tis-disableSelect" style="padding:0px 10px 0px 10px">申请发言</a>
+                    <a class="adjustBtn">
+                        <div class="adjustHead"></div>
+                        <div class="sliderBar voiceValue"></div>
+                        <div class="sliderBar micValue"></div>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </td>
 </tr>
 </table>
 </div>
-
+-->
 
 <script>
 var _hmt = _hmt || [];

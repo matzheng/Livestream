@@ -16,7 +16,7 @@ class DBConf
 {
 	const host = "127.0.0.1";
 	const user = "root";
-	const password = "123456";
+	const password = null;
 	const dbname = "jxnews";
 }
 $accessId = ADConf::AccessId;
