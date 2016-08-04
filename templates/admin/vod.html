@@ -1,0 +1,146 @@
+{% extends "admin-main-layout.html" %}
+
+{%block content %}
+<div class="row">
+	<ol class="breadcrumb">
+		<li><a href="#"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
+		<li class="active">点播</li>
+	</ol>
+</div><!--/.row-->
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-default">
+	<div class="panel-heading">点播列表</div>
+	<div class="panel-body">
+		<div class="col-md-12">
+			<table class="table table-hover">
+			   <thead>
+			      <tr>
+			         <th>id</th>
+			         <th>标题</th>
+			         <th>观看地址</th>
+			         <th>时间</th>
+			         <th>删除</th>
+			      </tr>
+			   </thead>
+			   <tbody>
+			   		{%for a in lives%}
+			   			<tr>
+			   				<td>{{a.aid}}</td><td><a href="/admin/voddetail?id={{a.aid}}">{{a.title}}</a></td>			   				
+			   				<td><a href="{{a.liveurl}}" target="_blank">点击打开</a></td>
+			   				<td>{{a.t | date("m/d/Y")}}</td>
+			   				<td><button class="btn btn-primary del" data-id="{{a.aid}}" data-appid="{{a.appid}}" data-title="{{a.title}}">删除</button></td>
+			   			</tr>
+			   		{%endfor%}
+			   </tbody>
+			</table>
+		</div>
+	</div>
+</div>
+	</div>
+</div><!--/.row-->
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">新增点播</div>
+			<div class="panel-body">
+				<div class="col-md-12">
+					<div class="form-group">
+						<label>点播名字</label>
+						<input class="form-control" type="text" id="title" placeholder="" required="">
+					</div>								
+					<div class="form-group">
+						<label>分类</label>
+						<select id="cate" class="form-control">
+							{%for c in cates %}
+								<option value='{{c.id}}'>{{c.name}}</option>
+							{%endfor%}
+						</select>
+					</div>
+					<div class="form-group">
+						<label>选择对应直播</label>
+						<select id="appid" class="form-control">
+							{%for a in appids %}
+								<option value='{{a.appid}}'>{{a.title}}</option>
+							{%endfor%}
+						</select>
+					</div>
+					<div class="form-group">
+						<label>缩略图</label>
+						<div class="row">
+							<iframe scrolling="no" frameborder="0" border="0" width="100" height="103" src="/upload?Width=100&Height=100&BackCall=thumbnail&Img="></iframe>
+							<input type="hidden" name="thumbnail" id="thumbnail" value="">
+						</div>
+					</div>
+					<div class="form-group">
+						<label>点播内容</label>
+						<textarea name="content" id="content" style="width:100%;visibility:hidden;"></textarea>
+					</div>
+<button type="submit" id="btnsubmit" class="btn btn-primary">添加点播</button>			
+				</div>
+			</div>
+		</div>
+	</div><!-- /.col-->
+</div><!--/.row-->
+{%endblock%}
+
+{%block js%}
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#btnsubmit').click(function(){
+		if($('#title').val() == '')
+		{
+			alert('请输入所有信息。');
+			return false;
+		}
+		
+		$.post('/api/addVod', 
+			{
+				title: $('#title').val(), cate: $('#cate option:selected').val(), 
+				thumbnail: $('#thumbnail').val(), price: 0, content: $('#content').val(),
+				appid: $('#appid').val()
+			}
+			, function(resp){
+				if(resp.status == 'y')
+				{
+					window.location.reload();
+				}
+				else
+				{
+					alert(resp.msg);
+				}
+		});
+	});
+
+	//editor
+	var editor = KindEditor.create('textarea[name="content"]',{
+				uploadJson : '/themes/kindeditor/php/upload_json.php',
+				fileManagerJson : '/themes/kindeditor/php/file_manager_json.php',
+				allowFileManager : true,
+				afterBlur:function(){this.sync();}  
+				});
+
+	$('.del').each(function(index, element){
+		$(element).click(function(){
+			if(confirm('确定删除[' + $(element).data('title') + ']?'))
+			{
+				$.post("/api/deleteStream", {id: $(element).data('id'), appid:''}, function(resp){
+					if(resp.status == 'y')
+					{
+						window.location.href = "/admin/vod";
+					}
+					else
+					{
+						alert('请联系管理员');
+					}
+				});
+			}
+		});
+		
+	});
+
+});
+</script>
+{%endblock%}

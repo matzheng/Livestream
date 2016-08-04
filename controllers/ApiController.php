@@ -194,4 +194,78 @@ class ApiController
 				'msg' => '删除成功'
 			]);
 	}
+
+	public function addVod($request, $response, $args)
+	{
+		$parsedBody = $request->getParsedBody();
+		$title = $parsedBody['title'];
+		$cate = $parsedBody['cate'];
+		$price = $parsedBody['price'];
+		$content = str_replace("/themes/", "http://".$request->getUri()->getHost().":"
+				.$request->getUri()->getPort()."/themes/", $parsedBody['content']);
+		$thumbnail = $parsedBody['thumbnail'];
+		$appid = $parsedBody['appid'];
+		$db = $this->ci->db;
+		$sth = $db->prepare("insert into qw_live(sid, title, keywords,
+			description, thumbnail, content, liveurl,liveprice, t, n , r,appid, wisid, tisid) 
+			values(:sid, :title,:title,'',:thumbnail,:content, :liveurl,:price,:time,0,1,:appid, '', '')");		
+
+		$roomurl = "http://".$request->getUri()->getHost().":"
+				.$request->getUri()->getPort()."/vod?id=".$appid."&lssApp=".$appid."&thApp=".$appid."&lssStream=".$appid
+				."&thStream=".$appid;
+		$sth->bindParam(':sid', $cate, PDO::PARAM_INT);
+		$sth->bindParam(':title', $title, PDO::PARAM_STR);
+		$sth->bindParam(':liveurl',$roomurl, PDO::PARAM_STR);
+		$sth->bindParam(':price', $price, PDO::PARAM_INT);
+		$sth->bindParam(':time', time(), PDO::PARAM_INT);
+		$sth->bindParam(':appid', $appid, PDO::PARAM_INT);
+		$sth->bindParam(':content', $content, PDO::PARAM_STR);
+		$sth->bindParam(':thumbnail', $thumbnail, PDO::PARAM_STR);
+		//录入数据库
+		$sth->execute();
+
+		return $response->withJson(
+				[
+					'status' => 'y',
+					'msg' => '添加成功。'
+				]
+			);
+
+	}
+
+	public function editVod($request, $response, $args)
+	{
+		$parsedBody = $request->getParsedBody();
+		$title = $parsedBody['title'];
+		$cate = $parsedBody['cate'];
+		$price = 0;
+		$content = str_replace("\"/themes/", "\"http://".$request->getUri()->getHost().":"
+				.$request->getUri()->getPort()."/themes/", $parsedBody['content']);
+		$appid = $parsedBody['appid'];
+		$thumbnail = $parsedBody['thumbnail'];
+		$liveurl = "http://".$request->getUri()->getHost().":"
+				.$request->getUri()->getPort()."/vod?id=".$appid."&lssApp=".$appid."&thApp=".$appid."&lssStream=".$appid
+				."&thStream=".$appid;
+
+		$db = $this->ci->db;
+		$sth = $db->prepare("update qw_live
+			set title=:title, sid=:sid, content=:content, t=:t, liveprice=:price, thumbnail=:thumbnail, liveurl=:liveurl
+			where aid=:id");
+		$sth->bindParam(':id', $request->getQueryParams()['id'], PDO::PARAM_INT);
+		$sth->bindParam(':title', $title, PDO::PARAM_STR);
+		$sth->bindParam(':sid', $cate, PDO::PARAM_INT);
+		$sth->bindParam(':content', $content, PDO::PARAM_STR);
+		$sth->bindParam(':t', time(), PDO::PARAM_INT);
+		$sth->bindParam(':price', $price, PDO::PARAM_INT);
+		$sth->bindParam(':thumbnail', $thumbnail, PDO::PARAM_STR);
+		$sth->bindParam(':liveurl', $liveurl, PDO::PARAM_STR);
+		$sth->execute();
+
+		return $response->withJson(
+				[
+					'status' => 'y',
+					'msg' => '修改成功。'
+				]
+			);
+	}
 }

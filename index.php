@@ -104,11 +104,18 @@ $container['UploadController'] = function ($ci) {
     return new \UploadController($ci);
 };
 
+$app->get('/', function ($request, $response){
+    $response->getBody()->write("<h1>安酷后台管理系统</h1><p><a href='/admin'>登录</a></p>");
+
+    return $response;
+});
 /**
  * 直播间
  */
 $app->get('/live', '\LiveController:index');
 $app->get('/room', '\LiveController:room');
+$app->get('/vod', '\LiveController:vod');
+$app->get('/uploadvod', '\LiveController:uploadvod');
 $app->get('/test', '\LiveController:test');
 $app->get('/upload','\UploadController:index');
 $app->post('/upload','\UploadController:upload');
@@ -127,6 +134,8 @@ $app->group('/admin', function(){
     $this->get('/streamdetail', '\AdminController:streamdetail');
     $this->get('/orders', '\AdminController:orders');
     $this->get('/users', '\AdminController:users');
+    $this->get('/vod', '\AdminController:vod');
+    $this->get('/voddetail', '\AdminController:voddetail');
 });
 
 /**
@@ -139,6 +148,8 @@ $app->group('/api', function(){
     $this->post('/addStream', '\ApiController:addStream');
     $this->post('/editStream', '\ApiController:editStream');
     $this->post('/deleteStream', '\ApiController:deleteStream');
+    $this->post('/addVod','\ApiController:addVod');
+    $this->post('/editVod','\ApiController:editVod');
 });
 
 /**

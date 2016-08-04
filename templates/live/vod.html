@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{Live.title}}</title>
+<link href="../../themes/lumino/css/bootstrap.min.css" rel="stylesheet">
+<script type="text/javascript" charset="utf-8" src="http://cdn.aodianyun.com/static/jquery/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="http://cdn.aodianyun.com/lss/aodianplay/player.js"></script>
+</head>
+
+<body>
+<h3>{{Live.title}}</h3>
+<div class="container-fluid">
+    <div class="row">
+    {%for c in List%}
+      <div class="col-xs-12 col-md-3">
+          <div id="videoPlayer{{c.id}}"></div>
+          <div class="caption">生成时间：{{c.uptime | date('Y/m/d h:i:s')}}</div>
+        <script type="text/javascript">
+        {% if ismobile%}
+          var w = window.screen.width - 100;//视频宽度 
+          var h = "240";//视频高度
+        {%else%}
+          var w = window.screen.width / 4 - 20;//视频宽度 
+          var h = "240";//视频高度
+        {%endif%}                
+        var url = "{{c.m3u8}}";//视频地址
+        var image = "{{c.thumbnail}}";//封面图片
+        var objectPlayer{{c.id}}=new aodianPlayer({
+          container:'videoPlayer{{c.id}}',//播放器容器ID，必要参数
+          hlsUrl: url,//控制台开通的APP hls地址，必要参数
+          /* 以下为可选参数*/
+          width: w,//播放器宽度，可用数字、百分比等
+          height: h,//播放器高度，可用数字、百分比等
+          autostart: false,//是否自动播放，默认为false
+          controlbardisplay: 'false',//是否显示控制栏，值为：disable、enable默认为disable。
+          adveDeAddr: image,//封面图片链接
+          adveWidth: w,//封面图宽度
+          adveHeight: h,//封面图高度
+          //adveReAddr: ''//封面图点击链接
+        });
+        </script>
+      </div>
+    {%endfor%}
+    </div>
+</div>
+</body>
+</html>

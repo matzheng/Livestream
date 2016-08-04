@@ -44,9 +44,14 @@ class AdminController
 		$sth->execute();
 		$ordercount = $sth->fetch(PDO::FETCH_ASSOC);
 		//直播间
-		$sth = $db->prepare("select count(*) as livecount from qw_live ");
+		$sth = $db->prepare("select count(*) as livecount from qw_live where sid=7 ");
 		$sth->execute();
 		$livecount = $sth->fetch(PDO::FETCH_ASSOC);
+
+		//点播
+		$sth = $db->prepare("select count(*) as vodcount from qw_live where sid=8 ");
+		$sth->execute();
+		$vodcount = $sth->fetch(PDO::FETCH_ASSOC);
 
 		$cookie_admin = FigRequestCookies::get($request, 'admin');
 		return $this->ci->view->render($response, '/admin/main.html', [
@@ -55,7 +60,8 @@ class AdminController
 			'usercount' => $usercount['usercount'],
 			'ordercount' => $ordercount['ordercount'],
 			'commentcount' => 0,
-			'livecount' => $livecount['livecount']
+			'livecount' => $livecount['livecount'],
+			'vodcount' => $vodcount['vodcount']
 			]);
 	}
 
@@ -103,13 +109,13 @@ class AdminController
 	{
 		//列表
 		$db = $this->ci->db;
-		$sth = $db->prepare("select * from qw_live");
+		$sth = $db->prepare("select * from qw_live where sid=7");
 		$sth->execute();
 		$lives = $sth->fetchAll(PDO::FETCH_ASSOC);
 
 		//分类
 		$db = $this->ci->db;
-		$sth = $db->prepare("select * from qw_livecate");
+		$sth = $db->prepare("select * from qw_livecate where id=8");
 		$sth->execute();
 		$cates = $sth->fetchAll(PDO::FETCH_ASSOC);
 
@@ -126,7 +132,7 @@ class AdminController
 	{
 		//分类
 		$db = $this->ci->db;
-		$sth = $db->prepare("select * from qw_livecate");
+		$sth = $db->prepare("select * from qw_livecate where id=7");
 		$sth->execute();
 		$cates = $sth->fetchAll(PDO::FETCH_ASSOC);
 
@@ -176,6 +182,68 @@ class AdminController
 		return $this->ci->view->render($response, '/admin/users.html', [
 			'user' => $cookie_admin->getValue(),
 			'users' => $users
+			]);
+	}
+
+	/**
+	 * 点播
+	 */
+	public function vod($request, $response, $args)
+	{
+		//列表
+		$db = $this->ci->db;
+		$sth = $db->prepare("select * from qw_live where sid=8");
+		$sth->execute();
+		$lives = $sth->fetchAll(PDO::FETCH_ASSOC);
+
+		//分类
+		$sth = $db->prepare("select * from qw_livecate where id=8");
+		$sth->execute();
+		$cates = $sth->fetchAll(PDO::FETCH_ASSOC);
+
+		//appids
+		$sth = $db->prepare("select * from qw_live where sid=7");
+		$sth->execute();
+		$appids = $sth->fetchAll(PDO::FETCH_ASSOC);
+
+		$cookie_admin = FigRequestCookies::get($request, 'admin');
+		return $this->ci->view->render($response, '/admin/vod.html', [
+			'user' => $cookie_admin->getValue(),
+			'uin' => ADConf::Uin,
+			'lives' => $lives,
+			'cates' => $cates,
+			'appids' => $appids
+			]);
+	}
+
+	/**
+	 * 点播详情
+	 */
+	public function voddetail($request, $response, $args)
+	{
+		//分类
+		$db = $this->ci->db;
+		$sth = $db->prepare("select * from qw_livecate where id=8");
+		$sth->execute();
+		$cates = $sth->fetchAll(PDO::FETCH_ASSOC);
+
+		//直播详情
+		$sth = $db->prepare("select * from qw_live where aid=:id");
+		$sth->bindParam(':id', $request->getQueryParams()['id'], PDO::PARAM_INT);
+		$sth->execute();
+		$stream = $sth->fetch(PDO::FETCH_ASSOC);
+
+		//appids
+		$sth = $db->prepare("select * from qw_live where sid=7");
+		$sth->execute();
+		$appids = $sth->fetchAll(PDO::FETCH_ASSOC);
+
+		$cookie_admin = FigRequestCookies::get($request, 'admin');
+		return $this->ci->view->render($response, '/admin/voddetail.html', [
+				'user' => $cookie_admin->getValue(),
+				'cates' => $cates,
+				'stream' => $stream,
+				'appids' => $appids
 			]);
 	}
 }
