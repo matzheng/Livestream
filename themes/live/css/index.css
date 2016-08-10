@@ -259,7 +259,7 @@ a {
     float:left;
 }
 .displayCtrlBar .offMicBtn {
-    background-color:rgb(63,125,224);
+    background-color:#81b22e;
     display:inline-block;
     height:35px;
     line-height:35px;
@@ -306,7 +306,7 @@ a {
 .slider_Track {
     width: 0px;
     height: 5px;
-    background-color: rgb(63,125,224);
+    background-color:#81b22e;
     -webkit-border-radius: 2em;
     -moz-border-radius: 2em;
     border-radius: 2em;

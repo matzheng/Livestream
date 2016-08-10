@@ -109,13 +109,16 @@ class AdminController
 	{
 		//列表
 		$db = $this->ci->db;
-		$sth = $db->prepare("select * from qw_live where sid=7");
+		$sth = $db->prepare("select a.*, ifnull(b.buycount,0) buycount from qw_live a 
+			left join (select gid,count(distinct uid) as buycount from qw_live_orders where n=1 group by gid) b on a.aid=b.gid 
+			where sid=7;");
+		//$sth = $db->prepare("select * from qw_live where sid=7");
 		$sth->execute();
 		$lives = $sth->fetchAll(PDO::FETCH_ASSOC);
 
 		//分类
 		$db = $this->ci->db;
-		$sth = $db->prepare("select * from qw_livecate where id=8");
+		$sth = $db->prepare("select * from qw_livecate where id=7");
 		$sth->execute();
 		$cates = $sth->fetchAll(PDO::FETCH_ASSOC);
 

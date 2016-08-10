@@ -5,6 +5,7 @@
 <div id="videoPlayer"></div>
 <script type="text/javascript" charset="utf-8" src="http://cdn.aodianyun.com/static/jquery/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" charset="utf-8" src="http://cdn.aodianyun.com/lss/aodianplay/player.js"></script>
+<script type="text/javascript" src="/themes/live/js/qrcode.min.js"></script>
 <script type="text/javascript">
 var w = "320";//视频宽度
 var h = "240";//视频高度
@@ -24,5 +25,19 @@ var objectPlayer=new aodianPlayer({
   //adveReAddr: ''//封面图点击链接
 });
 </script>
+
+
+<div id="qrcode"></div>
+<script type="text/javascript">
+var qrcode = new QRCode("qrcode", {
+    text: "http://live.safecoo.com/room?id=1470367458&lssApp=1470367458&thApp=1470367458&lssStream=1470367458&thStream=1470367458&wisId=lc_87eaa271e18672c110a25f509ac4996e&tisId=6e7324ca28f924af4cdd400bbc6614d0&name=老大",
+    width: 128,
+    height: 128,
+    colorDark : "#000000",
+    colorLight : "#ffffff",
+    correctLevel : QRCode.CorrectLevel.M
+});
+</script>
+
 </body>
 </html>

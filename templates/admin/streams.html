@@ -21,6 +21,7 @@
 			         <th>标题</th>
 			         <!--<th>描述</th>-->
 			         <th>价格</th>
+			         <th>报名人数</th>
 			         <th>发布地址</th>
 			         <th>tis</th>
 			         <th>主播端地址</th>
@@ -33,6 +34,7 @@
 			   		{%for a in lives%}
 			   			<tr>
 			   				<td>{{a.aid}}</td><td><a href="/admin/streamdetail?id={{a.aid}}">{{a.title}}</a></td><!--<td>{{a.description}}</td>--><td>￥{{a.liveprice}}</td>
+			   				<td>{{a.buycount}}</td>
 			   				<td>rtmp://{{uin}}.lsspublish.aodianyun.com/{{a.appid}}/{{a.appid}}</td>
 			   				<td>{{a.tisid}}</td><td>
 			   				<a href="/live?id={{a.appid}}&name={{user}}&thApp={{a.appid}}&lssApp={{a.appid}}&thStream={{a.appid}}&lssStream={{a.appid}}&wisId={{a.wisid}}&tisId={{a.tisid}}" target="_blank">点击打开</a>

@@ -166,6 +166,111 @@
     border:0px;
     background-color:black;
 }
+
+/** tabs **/
+.rightBox .tabsBox {
+    margin-top:10px;
+    height:362px;
+    border:1px solid rgb(87,102,119);
+    border-radius:8px 8px 0px 0px;
+    overflow:hidden;
+}
+.rightBox .tabsHeader {
+    height:39px;
+    border:1px solid rgb(87,102,119);
+    border-bottom:1px solid rgb(188,188,188);
+    background-color:rgb(228,228,228);
+}
+.rightBox .tabsHeader a {
+    display:inline-block;
+    background-color:rgb(201,201,201);
+    border:1px solid rgb(161,161,161);
+    border-bottom-width:0px;
+    padding:0px 15px 0px 15px;
+    height:35px;
+    line-height:35px;
+    margin:4px 0px 0px 4px;
+    float:left;
+    border-radius:5px 5px 0px 0px;
+    font-family: "Arial Negreta","Arial";
+    font-size: 14px;
+    font-weight: 700;
+    color: #333333;
+    cursor:pointer;
+    -moz-user-select: none;
+    -o-user-select:none;
+    -khtml-user-select:none;
+    -webkit-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+}
+.rightBox .tabsHeader a:hover {
+    background-color:rgb(245,245,245);    
+}
+.rightBox .tabsHeader .selectTab {
+    background-color:white;
+}
+.rightBox .tabBody {
+    border:1px solid rgb(188,188,188);
+    /* border-top-width:0px; */
+    background-color:white;
+    height:220px;
+}
+.rightBox .chatWindow {
+    height:100%;
+}
+.tabBody .docList {
+    padding:10px 10px 0px 10px;
+    height:245px;
+    overflow:hidden;
+    overflow-y:auto;
+    border-bottom:1px solid rgb(188,188,188);
+}
+.tabBody .docList div {
+    cursor:pointer;
+    height:46px;
+    line-height:46px;
+}
+.tabBody .docList div:hover {
+    background-color:rgb(228,228,228);
+}
+.tabBody .docList div img {
+    height:37px;
+    width:48px;
+    float:left;
+    margin:5px 0px 0px 5px;
+}
+.tabBody .docList div span {
+    color: #333333;
+    font-size: 14px;
+    font-style: normal;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    height:46px;
+    width:140px;
+    display:inline-block;
+    white-space:nowrap;
+    padding-left:10px;
+}
+.tabBody .docList div a {
+    float:right;
+    color: #0099cc;
+    font-family: "微软雅黑 Regular","微软雅黑";
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    text-decoration:underline;
+    margin-right:10px;
+}
+.tabBody .docList div a:hover {
+    color: rgb(253,153,43);
+}
+.tabBody .docList .selectDoc {
+    background-color:rgb(242,242,242);
+}
+.tabBody .docList .selectDoc span {
+    font-weight:700;
+}
     </style>
     <script type="text/javascript">
         var objectPlayer;
@@ -175,8 +280,8 @@
                 rtmpUrl: thPlay,//控制台开通的APP rtmp地址，必要参数
                 hlsUrl: thHlsPlay,
                 /* 以下为可选参数*/
-                width: '278',//播放器宽度，可用数字、百分比等
-                height: '180',//播放器高度，可用数字、百分比等
+                width: '100%',//播放器宽度，可用数字、百分比等
+                height: '280',//播放器高度，可用数字、百分比等
                 autostart: true,//是否自动播放，默认为false
                 bufferlength: '1',//视频缓冲时间，默认为3秒。hls不支持！手机端不支持
                 maxbufferlength: '2',//最大视频缓冲时间，默认为2秒。hls不支持！手机端不支持
@@ -220,7 +325,7 @@
         });
     </script>
 </head>
-<body >
+<body style="background:#333">
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -230,7 +335,7 @@
         </div>                            
     </div><!-- /.container-fluid -->
 </nav>
-<div class="container-fluid">
+<div class="container-fluid" style="display:none;">
     <div class="row">
     <div class="col-sm-12 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
         <!--<div class="row"><div class="breadcrumb">{{live.title}}</div></div>-->
@@ -243,7 +348,7 @@
 </div>
 <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-12 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+        <div class="col-sm-12 col-sm-offset-3 col-lg-10 col-lg-offset-2 main" >
             <div style="" class="videoView" id="videoView"></div>
         </div>
         <div class="col-sm-12 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
@@ -254,7 +359,7 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div>
+        <div class="rightBox">
             <div class="tabsBox">
                 <div class="tabsHeader">
                     <a onclick="switchTab(this,'#tabBody1');" class="selectTab" href="javascript:tissplit.refresh()">聊天</a>
@@ -262,8 +367,8 @@
                     <!--<a id="micTabBtn" onclick="switchTab(this, '#tabBody4');">麦序</a>-->
                 </div>
                 <div class="tabBody">
-                    <div id="tabBody1" class="tis-container chatWindow"></div>
-                    <div id="tabBody2" class="docWindow" style="display:none;">
+                    <div id="tabBody1" class="tis-container chatWindow" style="overflow:inherit"></div>
+                    <div id="tabBody2" class="docWindow" style="display:none;overflow:inherit;" >
                         <div class="docList" id="docList">
                         </div>
                         <div class="docUploader">
@@ -271,10 +376,10 @@
                         </div>
                         <iframe id="uploadForm" style="height:0px;width:0px;display:none;"></iframe>
                     </div>
-                    <div id="tabBody3" style="display:none;">
+                    <div id="tabBody3" style="display:none;overflow:inherit;">
                         <div class="userList"></div>
                     </div>
-                    <div id="tabBody4" class="micWindow" style="display:none;">
+                    <div id="tabBody4" class="micWindow" style="display:none;overflow:inherit;" >
                         <div id="micFrameWrap">
                             <div>当前发言者：<span id="curMicIdLabel"></span></div>
                             <iframe id="micFrame" frameborder="0"></iframe>

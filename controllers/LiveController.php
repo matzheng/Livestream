@@ -35,12 +35,13 @@ class LiveController
 		$cookie_appids = FigRequestCookies::get($request, 'appids');
 		if(!$cookie_appids->getValue())
 		{
-			$response->getBody()->write("您未付费，请付费后观看!<a href='http://www.safecoo.com/index.php/home/Live/index'>返回</a>");
+			$response->getBody()->write("<body onload='location.href=\"http://www.safecoo.com/index.php/home/Live/index\"'><h1>您未付费，请付费后观看!</h2><a href='http://www.safecoo.com/index.php/home/Live/index'>返回</a></h2></body>");
 			return $response;   
 		}
 		if($cookie_appids->getValue() && strpos($cookie_appids->getValue(), $id) === false)
 		{	
-			$response->getBody()->write("您未付费，请付费后观看!<a href='http://www.safecoo.com/index.php/home/Live/index'>返回</a>");
+			//$response->getBody()->write("<h1>您未付费，请付费后观看!</h2><a href='http://www.safecoo.com/index.php/home/Live/index'>返回</a></h2>");
+			$response->getBody()->write("<body onload='location.href=\"http://www.safecoo.com/index.php/home/Live/index\"'><h1>您未付费，请付费后观看!</h2><a href='http://www.safecoo.com/index.php/home/Live/index'>返回</a></h2></body>");
 			return $response;
 		}
 		
