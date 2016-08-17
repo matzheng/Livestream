@@ -17,7 +17,7 @@
 				<div class="col-md-12">
 					<div class="form-group">
 						<label>点播名字</label>
-						<input class="form-control" type="text" id="title" placeholder="" value="{{stream['title']}}" required="">
+						<input class="form-control" type="text" id="title" placeholder="" data-appid="{{stream['appid']}}" value="{{stream['title']}}" required="">
 					</div>
 													
 					<div class="form-group">
@@ -32,7 +32,7 @@
 						<label>选择对应直播</label>
 						<select id="appid" class="form-control">
 							{%for a in appids %}
-								<option value='{{a.appid}}'>{{a.title}}</option>
+								<option value='{{a.appid}}' {%if stream['appid'] == a.appid%}selected='true'{%endif%}>{{a.title}}</option>
 							{%endfor%}
 						</select>
 					</div>

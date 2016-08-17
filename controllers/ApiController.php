@@ -249,7 +249,7 @@ class ApiController
 
 		$db = $this->ci->db;
 		$sth = $db->prepare("update qw_live
-			set title=:title, sid=:sid, content=:content, t=:t, liveprice=:price, thumbnail=:thumbnail, liveurl=:liveurl
+			set title=:title, sid=:sid, content=:content, t=:t, liveprice=:price, thumbnail=:thumbnail, liveurl=:liveurl, appid=:appid
 			where aid=:id");
 		$sth->bindParam(':id', $request->getQueryParams()['id'], PDO::PARAM_INT);
 		$sth->bindParam(':title', $title, PDO::PARAM_STR);
@@ -259,6 +259,7 @@ class ApiController
 		$sth->bindParam(':price', $price, PDO::PARAM_INT);
 		$sth->bindParam(':thumbnail', $thumbnail, PDO::PARAM_STR);
 		$sth->bindParam(':liveurl', $liveurl, PDO::PARAM_STR);
+		$sth->bindParam(':appid', $appid, PDO::PARAM_INT);
 		$sth->execute();
 
 		return $response->withJson(
